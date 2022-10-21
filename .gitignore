@@ -1,0 +1,8 @@
+node_modules/
+.vscode/
+coverage
+build/
+
+.env
+.env.local
+.env.development
