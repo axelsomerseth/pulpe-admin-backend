@@ -7,7 +7,7 @@ import helmet from "helmet";
 import { engine } from "express-handlebars";
 
 // import routes
-// import indexRouter from "./routes/index";
+import indexRouter from "./routes/index";
 // import categoriesRouter from "./routes/categories";
 // import productsRouter from "./routes/products";
 import viewsRouter from "./routes/views";
@@ -27,7 +27,7 @@ app.use(compression()); // 3rd party plugin: compresses all the responses
 app.use(helmet()); // 3rd party plugin: secure your Express apps by setting various HTTP headers
 
 // define routes
-// app.use("/", indexRouter);
+app.use("/", indexRouter);
 // app.use("/products", productsRouter);
 // app.use("/categories", categoriesRouter);
 
