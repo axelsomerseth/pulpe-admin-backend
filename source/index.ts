@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
+import * as dotenv from "dotenv";
 import http from "http";
 import { app } from "./app";
+
+dotenv.config();
 
 const port = process.env.PORT || 5000;
 
