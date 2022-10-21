@@ -1,0 +1,16 @@
+<h1>Pulpe Admin App: Rendering HTML from a template</h1>
+
+<!-- Uses built-in `if` helper. -->
+{{#if categories}}
+  <h2>Categories List</h2>
+  <ul class="category_list">
+    {{#each categories}}
+      <li>ID: {{this.id}} - {{this.name}} - {{this.description}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+<img
+  src="/static/images/pulperia-de-don-joaquin.jpg"
+  alt="Pulperia of Don Joaquin"
+/>
