@@ -8,7 +8,7 @@ import { engine } from "express-handlebars";
 
 // import routes
 import indexRouter from "./routes/index";
-// import categoriesRouter from "./routes/categories";
+import categoriesRouter from "./routes/categories";
 // import productsRouter from "./routes/products";
 import viewsRouter from "./routes/views";
 
@@ -28,8 +28,8 @@ app.use(helmet()); // 3rd party plugin: secure your Express apps by setting vari
 
 // define routes
 app.use("/", indexRouter);
+app.use("/categories", categoriesRouter);
 // app.use("/products", productsRouter);
-// app.use("/categories", categoriesRouter);
 
 // static files
 app.use("/static", express.static(path.join(__dirname, "public")));
