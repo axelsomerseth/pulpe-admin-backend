@@ -7,7 +7,7 @@ import {
   deleteCategory,
 } from "../handlers/categories";
 import validate from "../middlewares/validate";
-import { categorySchema } from "../schemas/categorySchema";
+import { categorySchema } from "../schemas/category";
 
 const router: Router = express.Router();
 

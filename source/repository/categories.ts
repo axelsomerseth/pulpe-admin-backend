@@ -19,7 +19,7 @@ const editCategory = async (category: Category) => {
   // TODO: return the edited category.
 };
 
-const deleteCategory = async (categoryId: number) => {
+const removeCategory = async (categoryId: number) => {
   // TODO: return deleted rows.
   return { deletedRows: 0 };
 };
@@ -29,5 +29,5 @@ export {
   findCategoryById,
   addCategory,
   editCategory,
-  deleteCategory,
+  removeCategory,
 };

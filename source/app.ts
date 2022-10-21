@@ -9,14 +9,14 @@ import { engine } from "express-handlebars";
 // import routes
 import indexRouter from "./routes/index";
 import categoriesRouter from "./routes/categories";
-// import productsRouter from "./routes/products";
+import productsRouter from "./routes/products";
 import viewsRouter from "./routes/views";
 
 const app: Express = express();
 
 // custom middleware
-// const requestTime = require("./middlewares/requestTime");
-// app.use(requestTime);
+import requestTime from "./middlewares/requestTime";
+app.use(requestTime);
 
 // middleware (goes first than routes)
 app.use(logger("dev"));
@@ -29,7 +29,7 @@ app.use(helmet()); // 3rd party plugin: secure your Express apps by setting vari
 // define routes
 app.use("/", indexRouter);
 app.use("/categories", categoriesRouter);
-// app.use("/products", productsRouter);
+app.use("/products", productsRouter);
 
 // static files
 app.use("/static", express.static(path.join(__dirname, "public")));

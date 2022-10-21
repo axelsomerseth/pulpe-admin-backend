@@ -1,5 +1,10 @@
-import { findCategories } from "../repository/categories";
-// const categoriesRepository = require("../repository/categories");
+// import {
+//   findCategories,
+//   findCategoryById,
+//   addCategory,
+//   editCategory,
+//   removeCategory,
+// } from "../repository/categories";
 import { Handler, Request, Response } from "express";
 import { Category } from "../types/categories";
 
@@ -17,7 +22,7 @@ const listCategories: Handler = async (req: Request, res: Response) => {
 
 const readCategory: Handler = async (req: Request, res: Response) => {
   const categoryId = req.params.categoryId;
-  // const found = await categoriesRepository.getCategoryById(categoryId);
+  // const found = await findCategoryById(categoryId);
   const found: Category[] = [];
   if (found.length) {
     res.status(200);
@@ -32,7 +37,7 @@ const createCategory: Handler = async (req: Request, res: Response) => {
     name: req.body.name,
     description: req.body.description,
   };
-  // const created = await categoriesRepository.addCategory(newCategory);
+  // const created = await addCategory(newCategory);
   const created: Category[] = [];
   if (created.length) {
     res.status(201);
@@ -49,7 +54,7 @@ const updateCategory: Handler = async (req: Request, res: Response) => {
     name: req.body.name,
     description: req.body.description,
   };
-  // const updated = await categoriesRepository.editCategory(editedCategory);
+  // const updated = await editCategory(editedCategory);
   const updated: Category[] = [];
   if (updated.length) {
     res.status(200);
@@ -61,7 +66,7 @@ const updateCategory: Handler = async (req: Request, res: Response) => {
 
 const deleteCategory: Handler = async (req: Request, res: Response) => {
   const categoryId = req.params.categoryId;
-  // const deleted = await categoriesRepository.deleteCategory(categoryId);
+  // const deleted = await removeCategory(categoryId);
   const deleted = { deletedRows: 0 };
   if (deleted.deletedRows) {
     res.sendStatus(204);
