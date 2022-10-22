@@ -7,6 +7,9 @@ import FormData from "form-data";
 import Mailgun from "mailgun.js";
 import { MailgunMessageData } from "mailgun.js/interfaces/Messages";
 
+// TODO: implement a design pattern in this file.
+
+// TODO: pass parameters to this function.
 const sendEmailUsingAnSMTPServer = async () => {
   const {
     SMTP_HOSTNAME,
@@ -44,6 +47,7 @@ const sendEmailUsingAnSMTPServer = async () => {
   console.log("Email sent: ", info.response);
 };
 
+// TODO: pass parameters to this function.
 const sendMailUsingGmail = async () => {
   const { GMAIL_USERNAME, GMAIL_PASSWORD, TO_TEST_ADDRESS } = process.env;
 
@@ -72,6 +76,7 @@ const sendMailUsingGmail = async () => {
   console.debug("Email sent: ", info.response);
 };
 
+// TODO: pass parameters to this function.
 const sendEmailUsingASaaS = async () => {
   const { MAILGUN_API_KEY, MAILGUN_DOMAIN, TO_TEST_ADDRESS } = process.env;
   const FROM_TEST_ADDRESS = "axelsomerseth@gmail.com";
