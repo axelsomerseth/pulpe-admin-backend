@@ -1,7 +1,7 @@
 // const categoriesRepository = require("../repository/categories");
-import { Handler, Request, Response } from "express";
+import { RequestHandler, Request, Response } from "express";
 
-const viewsHandler: Handler = async (req: Request, res: Response) => {
+const viewsHandler: RequestHandler = async (req: Request, res: Response) => {
   // const list = await categoriesRepository.listCategories();
   const list: string[] = [];
   res.render("home", {

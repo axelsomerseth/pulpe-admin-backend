@@ -1,11 +1,11 @@
-import { Handler, Request, Response, NextFunction } from "express";
+import { RequestHandler, Request, Response } from "express";
 import {
   sendEmailUsingAnSMTPServer,
   sendMailUsingGmail,
   sendEmailUsingASaaS,
 } from "../services/email";
 
-const emailHandler: Handler = async (req: Request, res: Response) => {
+const emailHandler: RequestHandler = async (req: Request, res: Response) => {
   const { method } = req.query;
   try {
     if (method === "smtp") {

@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import { RequestHandler, Request, Response, NextFunction } from "express";
 import { ObjectSchema, ValidationResult } from "joi";
 
 // Validate incoming HTTP requests with Joi through a middleware
-const validate = (schema: ObjectSchema) => {
+const validate = (schema: ObjectSchema): RequestHandler => {
   return (req: Request, res: Response, next: NextFunction) => {
     const result: ValidationResult = schema.validate({ ...req.body });
     if (result.error) {

@@ -7,10 +7,10 @@
 //   editProduct,
 //   removeProduct,
 // } from "../repository/products";
-import { Handler, Request, Response } from "express";
+import { RequestHandler, Request, Response } from "express";
 import { Product } from "../types/products";
 
-const listProducts: Handler = async (req: Request, res: Response) => {
+const listProducts: RequestHandler = async (req: Request, res: Response) => {
   const page = req.query.page || 1;
   const size = req.query.size || 10;
   const search = req.query.search || "";
@@ -27,7 +27,7 @@ const listProducts: Handler = async (req: Request, res: Response) => {
   });
 };
 
-const readProduct: Handler = async (req: Request, res: Response) => {
+const readProduct: RequestHandler = async (req: Request, res: Response) => {
   const productId = req.params.productId;
   // const found = await findProductById(productId);
   const found: Product[] = [];
@@ -38,7 +38,7 @@ const readProduct: Handler = async (req: Request, res: Response) => {
   }
 };
 
-const createProduct: Handler = async (req: Request, res: Response) => {
+const createProduct: RequestHandler = async (req: Request, res: Response) => {
   const newProduct: Product = {
     name: req.body.name,
     description: req.body.description,
@@ -55,7 +55,7 @@ const createProduct: Handler = async (req: Request, res: Response) => {
   }
 };
 
-const updateProduct: Handler = async (req: Request, res: Response) => {
+const updateProduct: RequestHandler = async (req: Request, res: Response) => {
   const editedProduct: Product = {
     id: parseInt(req.params.productId),
     name: req.body.name,
@@ -73,7 +73,7 @@ const updateProduct: Handler = async (req: Request, res: Response) => {
   }
 };
 
-const deleteProduct: Handler = async (req: Request, res: Response) => {
+const deleteProduct: RequestHandler = async (req: Request, res: Response) => {
   const productId = req.params.productId;
   // const deleted = await removeProduct(productId);
   const deleted = { deletedRows: 0 };

@@ -5,10 +5,10 @@
 //   editCategory,
 //   removeCategory,
 // } from "../repository/categories";
-import { Handler, Request, Response } from "express";
+import { RequestHandler, Request, Response } from "express";
 import { Category } from "../types/categories";
 
-const listCategories: Handler = async (req: Request, res: Response) => {
+const listCategories: RequestHandler = async (req: Request, res: Response) => {
   const page = req.query.page || 1;
   const size = req.query.size || 10;
   // const list: Category[] = await findCategories();
@@ -20,7 +20,7 @@ const listCategories: Handler = async (req: Request, res: Response) => {
   });
 };
 
-const readCategory: Handler = async (req: Request, res: Response) => {
+const readCategory: RequestHandler = async (req: Request, res: Response) => {
   const categoryId = req.params.categoryId;
   // const found = await findCategoryById(categoryId);
   const found: Category[] = [];
@@ -32,7 +32,7 @@ const readCategory: Handler = async (req: Request, res: Response) => {
   }
 };
 
-const createCategory: Handler = async (req: Request, res: Response) => {
+const createCategory: RequestHandler = async (req: Request, res: Response) => {
   const newCategory: Category = {
     name: req.body.name,
     description: req.body.description,
@@ -48,7 +48,7 @@ const createCategory: Handler = async (req: Request, res: Response) => {
   }
 };
 
-const updateCategory: Handler = async (req: Request, res: Response) => {
+const updateCategory: RequestHandler = async (req: Request, res: Response) => {
   const editedCategory: Category = {
     id: parseInt(req.params.categoryId),
     name: req.body.name,
@@ -64,7 +64,7 @@ const updateCategory: Handler = async (req: Request, res: Response) => {
   }
 };
 
-const deleteCategory: Handler = async (req: Request, res: Response) => {
+const deleteCategory: RequestHandler = async (req: Request, res: Response) => {
   const categoryId = req.params.categoryId;
   // const deleted = await removeCategory(categoryId);
   const deleted = { deletedRows: 0 };

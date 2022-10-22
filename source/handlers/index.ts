@@ -1,6 +1,6 @@
-import { Handler, Request, Response, NextFunction } from "express";
+import { RequestHandler, Request, Response, NextFunction } from "express";
 
-const indexHandler: Handler = (
+const indexHandler: RequestHandler = (
   req: Request,
   res: Response,
   next: NextFunction
