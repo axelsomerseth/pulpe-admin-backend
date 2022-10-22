@@ -36,7 +36,7 @@ describe("validate middleware", () => {
   it("should not call nextFunction if req.body is empty", () => {
     // arrange
     const req = {};
-    const res = {
+    const res: any = {
       status: jest.fn(),
       json: jest.fn(),
     };
@@ -44,11 +44,7 @@ describe("validate middleware", () => {
 
     // act
     const middlewareFn = validate(categorySchema.create);
-    middlewareFn(
-      req as Request,
-      res as unknown as Response,
-      next as NextFunction
-    );
+    middlewareFn(req as Request, res as Response, next as NextFunction);
 
     // assert
     expect(next).not.toHaveBeenCalled();
