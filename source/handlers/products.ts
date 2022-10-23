@@ -11,9 +11,9 @@ import { RequestHandler, Request, Response } from "express";
 import { Product } from "../types/products";
 
 const listProducts: RequestHandler = async (req: Request, res: Response) => {
-  const page = req.query.page || 1;
-  const size = req.query.size || 10;
-  const search = req.query.search || "";
+  const page = req.query?.page || 1;
+  const size = req.query?.size || 10;
+  const search = req.query?.search || "";
   let list: Product[] = [];
   // if (search) {
   //   list = await searchForProducts(search);
@@ -28,7 +28,7 @@ const listProducts: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const readProduct: RequestHandler = async (req: Request, res: Response) => {
-  const productId = req.params.productId;
+  const productId = req.params?.productId;
   // const found = await findProductById(productId);
   const found: Product[] = [];
   if (found.length) {
@@ -40,11 +40,11 @@ const readProduct: RequestHandler = async (req: Request, res: Response) => {
 
 const createProduct: RequestHandler = async (req: Request, res: Response) => {
   const newProduct: Product = {
-    name: req.body.name,
-    description: req.body.description,
-    categoryId: req.body.categoryId,
-    price: req.body.price,
-    stock: req.body.stock,
+    name: req.body?.name,
+    description: req.body?.description,
+    categoryId: req.body?.categoryId,
+    price: req.body?.price,
+    stock: req.body?.stock,
   };
   // const created = await addProduct(newProduct);
   const created: string[] = [];
@@ -57,12 +57,12 @@ const createProduct: RequestHandler = async (req: Request, res: Response) => {
 
 const updateProduct: RequestHandler = async (req: Request, res: Response) => {
   const editedProduct: Product = {
-    id: parseInt(req.params.productId),
-    name: req.body.name,
-    description: req.body.description,
-    categoryId: req.body.categoryId,
-    price: req.body.price,
-    stock: req.body.stock,
+    id: parseInt(req.params?.productId),
+    name: req.body?.name,
+    description: req.body?.description,
+    categoryId: req.body?.categoryId,
+    price: req.body?.price,
+    stock: req.body?.stock,
   };
   // const updated = await editProduct(editedProduct);
   const updated: Product[] = [];
@@ -74,7 +74,7 @@ const updateProduct: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const deleteProduct: RequestHandler = async (req: Request, res: Response) => {
-  const productId = req.params.productId;
+  const productId = req.params?.productId;
   // const deleted = await removeProduct(productId);
   const deleted = { deletedRows: 0 };
   if (deleted.deletedRows) {

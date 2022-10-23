@@ -1,25 +1,137 @@
+import { Request, Response, NextFunction } from "express";
+import {
+  listProducts,
+  readProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from "./products";
+
 describe("listProducts request handler", () => {
-  it.todo("should write an array in the response body");
+  it("should write an array in the response body", async () => {
+    // arrange
+    const page = 1;
+    const size = 0;
+    const list: any = [];
+    const req: any = {
+      query: {
+        page,
+        size,
+      },
+    };
+    const res: any = { json: jest.fn() };
+    const next = jest.fn();
+
+    // act
+    await listProducts(req as Request, res as Response, next as NextFunction);
+
+    // assert
+    expect(res.json).toHaveBeenCalledWith({
+      page,
+      size,
+      data: list,
+    });
+  });
 });
 
 describe("readProduct request handler", () => {
   it.todo("should send one record in response body");
-  it.todo("should send an error if the requested record was not found");
+
+  it("should send a 404 error if the requested record was not found", async () => {
+    // arrange
+    const req: any = {
+      params: {
+        productId: 1,
+      },
+    };
+    const res: any = { sendStatus: jest.fn() };
+    const next = jest.fn();
+
+    // act
+    await readProduct(req as Request, res as Response, next as NextFunction);
+
+    // assert
+    expect(res.sendStatus).toHaveBeenCalledWith(404);
+  });
 });
 
 describe("createProduct request handler", () => {
   it.todo("should send the created record in the response body");
-  it.todo("should send an error if cannot create the requested record");
+  it("should send a 500 error if cannot create the requested record", async () => {
+    // arrange
+    const product = {
+      name: "Test name",
+      description: "Test description",
+      categoryId: 1,
+      price: 100,
+      stock: 12,
+    };
+    const req: any = {
+      body: {
+        ...product,
+      },
+    };
+    const res: any = { sendStatus: jest.fn() };
+    const next = jest.fn();
+
+    // act
+    await createProduct(req as Request, res as Response, next as NextFunction);
+
+    // assert
+    expect(res.sendStatus).toHaveBeenCalledWith(500);
+  });
 });
 
 describe("updateProduct request handler", () => {
   it.todo("should send the updated record in the response body");
-  it.todo("should send an error if cannot update the requested record");
+
+  it("should send a 404 error if cannot update the requested record", async () => {
+    // arrange
+    const product = {
+      name: "Test name",
+      description: "Test description",
+      categoryId: 1,
+      price: 100,
+      stock: 12,
+    };
+    const req: any = {
+      params: {
+        productId: 1,
+      },
+      body: {
+        ...product,
+      },
+    };
+    const res: any = { sendStatus: jest.fn() };
+    const next = jest.fn();
+
+    // act
+    await updateProduct(req as Request, res as Response, next as NextFunction);
+
+    // assert
+    expect(res.sendStatus).toHaveBeenCalledWith(404);
+  });
 });
 
 describe("deleteProduct request handler", () => {
   it.todo(
     "should send status code 204 if it was able to delete the requested record"
   );
-  it.todo("should send an 404 error if the requested method was not found");
+
+  it("should send an 404 error if the requested method was not found", async () => {
+    // arrange
+    const req: any = {
+      params: {
+        productId: 1,
+      },
+    };
+    const res: any = { sendStatus: jest.fn() };
+    const next = jest.fn();
+
+    // act
+    await deleteProduct(req as Request, res as Response, next as NextFunction);
+
+    // assert
+    expect(res.sendStatus).toHaveBeenCalledWith(404);
+  });
 });
