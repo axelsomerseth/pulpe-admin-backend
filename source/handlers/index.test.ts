@@ -2,7 +2,7 @@ import { indexHandler } from "./index";
 import { Request, Response, NextFunction } from "express";
 
 describe("index handler", () => {
-  it("should respond requests correctly", () => {
+  it("should respond requests correctly", async () => {
     // arrange
     const req = {};
     const res: any = {
@@ -11,7 +11,7 @@ describe("index handler", () => {
     const next = jest.fn();
 
     // act
-    indexHandler(req as Request, res as Response, next as NextFunction);
+    await indexHandler(req as Request, res as Response, next as NextFunction);
 
     // assert
     expect(next).not.toHaveBeenCalled();

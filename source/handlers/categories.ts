@@ -1,16 +1,9 @@
-// import {
-//   findCategories,
-//   findCategoryById,
-//   addCategory,
-//   editCategory,
-//   removeCategory,
-// } from "../repository/categories";
 import { RequestHandler, Request, Response } from "express";
 import { Category } from "../types/categories";
 
 const listCategories: RequestHandler = async (req: Request, res: Response) => {
-  const page = req.query.page || 1;
-  const size = req.query.size || 10;
+  const page = req.query?.page || 1;
+  const size = req.query?.size || 10;
   // const list: Category[] = await findCategories();
   const list: Category[] = [];
   res.send({
@@ -21,7 +14,7 @@ const listCategories: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const readCategory: RequestHandler = async (req: Request, res: Response) => {
-  const categoryId = req.params.categoryId;
+  const categoryId = req.params?.categoryId;
   // const found = await findCategoryById(categoryId);
   const found: Category[] = [];
   if (found.length) {
@@ -34,8 +27,8 @@ const readCategory: RequestHandler = async (req: Request, res: Response) => {
 
 const createCategory: RequestHandler = async (req: Request, res: Response) => {
   const newCategory: Category = {
-    name: req.body.name,
-    description: req.body.description,
+    name: req.body?.name,
+    description: req.body?.description,
   };
   // const created = await addCategory(newCategory);
   const created: Category[] = [];
@@ -50,9 +43,9 @@ const createCategory: RequestHandler = async (req: Request, res: Response) => {
 
 const updateCategory: RequestHandler = async (req: Request, res: Response) => {
   const editedCategory: Category = {
-    id: parseInt(req.params.categoryId),
-    name: req.body.name,
-    description: req.body.description,
+    id: parseInt(req.params?.categoryId),
+    name: req.body?.name,
+    description: req.body?.description,
   };
   // const updated = await editCategory(editedCategory);
   const updated: Category[] = [];
@@ -65,7 +58,7 @@ const updateCategory: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const deleteCategory: RequestHandler = async (req: Request, res: Response) => {
-  const categoryId = req.params.categoryId;
+  const categoryId = req.params?.categoryId;
   // const deleted = await removeCategory(categoryId);
   const deleted = { deletedRows: 0 };
   if (deleted.deletedRows) {
