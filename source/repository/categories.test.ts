@@ -31,7 +31,7 @@ describe("categories repository", () => {
     expect(outcome).toBeDefined();
   });
 
-  it("should return an category object through addCategory function", async () => {
+  it("should return a category object through addCategory function", async () => {
     // arrange
     const newCategory: Category = {
       name: "Test name",
@@ -46,7 +46,7 @@ describe("categories repository", () => {
     expect(outcome.name).toBe(newCategory.name);
   });
 
-  it("should return an category object through editCategory function", async () => {
+  it("should return a category object through editCategory function", async () => {
     // arrange
     const editedCategory: Category = {
       id: getRandomId(),
