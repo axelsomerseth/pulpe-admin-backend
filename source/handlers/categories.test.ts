@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { Category } from "../types/categories";
 import {
   listCategories,
   readCategory,
@@ -12,18 +13,18 @@ describe("listCategories request handler", () => {
     // arrange
     const page = 1;
     const size = 1;
-    const list: any = [];
-    const req: any = {
+    const list: Category[] = [];
+    const req = {
       query: {
         page,
         size,
       },
-    };
-    const res: any = { send: jest.fn() };
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = { send: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await listCategories(req as Request, res as Response, next as NextFunction);
+    await listCategories(req, res, next);
 
     // assert
     expect(res.send).toHaveBeenCalledWith({
@@ -39,16 +40,16 @@ describe("readCategory request handler", () => {
 
   it("should send a 404 error if the requested record was not found", async () => {
     // arrange
-    const req: any = {
+    const req = {
       params: {
         categoryId: 1,
       },
-    };
-    const res: any = { sendStatus: jest.fn() };
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = { sendStatus: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await readCategory(req as Request, res as Response, next as NextFunction);
+    await readCategory(req, res, next);
 
     // assert
     expect(res.sendStatus).toHaveBeenCalledWith(404);
@@ -60,17 +61,17 @@ describe("createCategory request handler", () => {
 
   it("should send a 500 error if cannot create the requested record", async () => {
     // arrange
-    const req: any = {
+    const req = {
       body: {
         name: "Test name",
         description: "Test description",
       },
-    };
-    const res: any = { status: jest.fn(), send: jest.fn() };
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = { status: jest.fn(), send: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await createCategory(req as Request, res as Response, next as NextFunction);
+    await createCategory(req, res, next);
 
     // assert
     expect(res.status).toHaveBeenCalledWith(500);
@@ -82,7 +83,7 @@ describe("updateCategory request handler", () => {
 
   it("should send a 404 error if cannot update the requested record", async () => {
     // arrange
-    const req: any = {
+    const req = {
       params: {
         categoryId: 1,
       },
@@ -90,17 +91,17 @@ describe("updateCategory request handler", () => {
         name: "Test name",
         description: "Test description",
       },
-    };
-    const res: any = {
+    } as unknown as Request;
+    const res = {
       status: jest.fn(),
       send: jest.fn(),
       sendStatus: jest.fn(),
       json: jest.fn(),
-    };
-    const next = jest.fn();
+    } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await updateCategory(req as Request, res as Response, next as NextFunction);
+    await updateCategory(req, res, next);
 
     // assert
     expect(res.sendStatus).toHaveBeenCalledWith(404);
@@ -114,18 +115,18 @@ describe("deleteCategory request handler", () => {
 
   it("should send a 404 error if the requested method was not found", async () => {
     // arrange
-    const req: any = {
+    const req = {
       params: {
         categoryId: 1,
       },
-    };
-    const res: any = {
+    } as unknown as Request;
+    const res = {
       sendStatus: jest.fn(),
-    };
-    const next = jest.fn();
+    } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await deleteCategory(req as Request, res as Response, next as NextFunction);
+    await deleteCategory(req, res, next);
 
     // assert
     expect(res.sendStatus).toHaveBeenCalledWith(404);

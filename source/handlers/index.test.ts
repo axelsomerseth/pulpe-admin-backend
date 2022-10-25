@@ -4,14 +4,14 @@ import { Request, Response, NextFunction } from "express";
 describe("index handler", () => {
   it("should respond requests correctly", async () => {
     // arrange
-    const req = {};
-    const res: any = {
+    const req = {} as Request;
+    const res = {
       send: jest.fn(),
-    };
-    const next = jest.fn();
+    } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await indexHandler(req as Request, res as Response, next as NextFunction);
+    await indexHandler(req, res, next);
 
     // assert
     expect(next).not.toHaveBeenCalled();

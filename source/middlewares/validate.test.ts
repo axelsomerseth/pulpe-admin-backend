@@ -21,13 +21,13 @@ describe("validate middleware", () => {
         name: "Test name",
         description: "Test description",
       },
-    };
-    const res = {};
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = {} as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
     const middlewareFn = validate(categorySchema.create);
-    middlewareFn(req as Request, res as Response, next as NextFunction);
+    middlewareFn(req, res, next);
 
     // assert
     expect(next).toHaveBeenCalledTimes(1);
@@ -35,16 +35,16 @@ describe("validate middleware", () => {
 
   it("should not call nextFunction if req.body is empty", () => {
     // arrange
-    const req = {};
-    const res: any = {
+    const req = {} as Request;
+    const res = {
       status: jest.fn(),
       json: jest.fn(),
-    };
-    const next = jest.fn();
+    } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
     const middlewareFn = validate(categorySchema.create);
-    middlewareFn(req as Request, res as Response, next as NextFunction);
+    middlewareFn(req, res, next);
 
     // assert
     expect(next).not.toHaveBeenCalled();

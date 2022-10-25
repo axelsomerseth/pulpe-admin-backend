@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { Product } from "../types/products";
 import {
   listProducts,
   readProduct,
@@ -12,18 +13,18 @@ describe("listProducts request handler", () => {
     // arrange
     const page = 1;
     const size = 0;
-    const list: any = [];
-    const req: any = {
+    const list: Product[] = [];
+    const req = {
       query: {
         page,
         size,
       },
-    };
-    const res: any = { json: jest.fn() };
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = { json: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await listProducts(req as Request, res as Response, next as NextFunction);
+    await listProducts(req, res, next);
 
     // assert
     expect(res.json).toHaveBeenCalledWith({
@@ -39,16 +40,16 @@ describe("readProduct request handler", () => {
 
   it("should send a 404 error if the requested record was not found", async () => {
     // arrange
-    const req: any = {
+    const req = {
       params: {
         productId: 1,
       },
-    };
-    const res: any = { sendStatus: jest.fn() };
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = { sendStatus: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await readProduct(req as Request, res as Response, next as NextFunction);
+    await readProduct(req, res, next);
 
     // assert
     expect(res.sendStatus).toHaveBeenCalledWith(404);
@@ -66,16 +67,16 @@ describe("createProduct request handler", () => {
       price: 100,
       stock: 12,
     };
-    const req: any = {
+    const req = {
       body: {
         ...product,
       },
-    };
-    const res: any = { sendStatus: jest.fn() };
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = { sendStatus: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await createProduct(req as Request, res as Response, next as NextFunction);
+    await createProduct(req, res, next);
 
     // assert
     expect(res.sendStatus).toHaveBeenCalledWith(500);
@@ -94,19 +95,19 @@ describe("updateProduct request handler", () => {
       price: 100,
       stock: 12,
     };
-    const req: any = {
+    const req = {
       params: {
         productId: 1,
       },
       body: {
         ...product,
       },
-    };
-    const res: any = { sendStatus: jest.fn() };
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = { sendStatus: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await updateProduct(req as Request, res as Response, next as NextFunction);
+    await updateProduct(req, res, next);
 
     // assert
     expect(res.sendStatus).toHaveBeenCalledWith(404);
@@ -120,16 +121,16 @@ describe("deleteProduct request handler", () => {
 
   it("should send an 404 error if the requested method was not found", async () => {
     // arrange
-    const req: any = {
+    const req = {
       params: {
         productId: 1,
       },
-    };
-    const res: any = { sendStatus: jest.fn() };
-    const next = jest.fn();
+    } as unknown as Request;
+    const res = { sendStatus: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
 
     // act
-    await deleteProduct(req as Request, res as Response, next as NextFunction);
+    await deleteProduct(req, res, next);
 
     // assert
     expect(res.sendStatus).toHaveBeenCalledWith(404);
