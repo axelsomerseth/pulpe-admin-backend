@@ -18,5 +18,6 @@ describe("email service", () => {
     // assert
     expect(emailSender).toBeDefined();
     expect(outcome).toBeDefined();
+    expect(outcome).toBe(true);
   });
 });
