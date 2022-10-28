@@ -7,7 +7,11 @@ import FormData from "form-data";
 import Mailgun from "mailgun.js";
 import { MailgunMessageData } from "mailgun.js/interfaces/Messages";
 
-// TODO: implement a design pattern in this file.
+// TODO: Make the test first and think about the test logic first.
+// TODO: Implement a design pattern in this file: 1 Interface and 3 classes.
+// TODO: Factory pattern => https://www.tutorialspoint.com/design_pattern/factory_pattern.htm#
+// TODO: Adapter pattern =>
+// TODO: Mock nodemailer and other packages in test.
 
 // TODO: pass parameters to this function.
 const sendEmailUsingAnSMTPServer = async () => {

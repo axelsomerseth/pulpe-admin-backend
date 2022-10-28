@@ -10,6 +10,8 @@ import {
 
 import { getRandomId } from "../utils/repository";
 
+// TODO: be more specific about test cases.
+
 describe("products repository", () => {
   it("should return a list of products through findProducts function", async () => {
     // arrange
@@ -26,6 +28,9 @@ describe("products repository", () => {
     "should return searched products in an array through searchForProducts function"
   );
 
+  // ! ojo
+  // cuando se busca un producto por su ID|SKU, debe retornarlo
+  // utilizar un ejemplo
   it.todo("should return one product through findProductById function");
 
   it.failing(
