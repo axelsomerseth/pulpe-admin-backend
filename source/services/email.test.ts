@@ -1,8 +1,11 @@
 import { EmailSenderSMTP } from "./email";
 
+jest.mock("nodemailer");
+jest.mock("./email");
+
 describe("email service", () => {
   // happy path
-  it("should send emails", () => {
+  it("should send emails", async () => {
     // arrange
     const emailOptions = {
       from: "Test Username <test@email.test>",
@@ -13,11 +16,10 @@ describe("email service", () => {
 
     // act
     const emailSender = new EmailSenderSMTP();
-    const outcome = emailSender.send(emailOptions);
+    await emailSender.send(emailOptions);
 
     // assert
     expect(emailSender).toBeDefined();
-    expect(outcome).toBeDefined();
-    expect(outcome).toBe(true);
+    expect(emailSender.send).toHaveBeenCalledWith(emailOptions);
   });
 });
