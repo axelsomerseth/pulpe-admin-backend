@@ -7,11 +7,15 @@ BUILD_FOLDER="./build"
 COVERAGE_FOLDER="./coverage"
 
 # Define function
-function clear_folders {
-	rm -r $BUILD_FOLDER
-	rm -r $COVERAGE_FOLDER
-	echo "Folders removed"
+remove_folder () {
+	if [ -d $1 ] 
+	then
+		rm -r $1
+	fi
 }
 
 # Call function
-clear_folders
+echo "Starting to remove folders: ${BUILD_FOLDER}, ${COVERAGE_FOLDER}"
+remove_folder $BUILD_FOLDER
+remove_folder $COVERAGE_FOLDER
+echo "Folders removed"
