@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "Show commit history [...]"
-
 # Define some function that uses git log to show commit history.
 
 # Functions definitions
@@ -23,5 +21,6 @@ function log_specific_3 {
 }
 
 # Calling one function.
+echo "Show commit history [...]"
 log_specific_1
 
