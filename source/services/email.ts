@@ -56,6 +56,7 @@ class EmailSenderSMTP implements EmailSender {
     };
 
     let info: SentMessageInfo = await this.transporter.sendMail(mailOptions);
+    console.debug("Email sent: ", info);
     return info.response === "250 Great success";
   }
 }

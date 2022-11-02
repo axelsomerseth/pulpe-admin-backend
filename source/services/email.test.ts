@@ -1,4 +1,6 @@
 import { EmailSenderSMTP } from "./email";
+// import { config } from "dotenv";
+// config();
 
 jest.mock("nodemailer");
 jest.mock("./email");
@@ -13,6 +15,8 @@ describe("email service", () => {
       subject: "Test email",
       textBody: "This is a test",
     };
+
+    console.log(process.env);
 
     // act
     const emailSender = new EmailSenderSMTP();
