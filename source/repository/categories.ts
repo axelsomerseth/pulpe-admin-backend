@@ -16,11 +16,7 @@ const findCategoryById = async (
 };
 
 const addCategory = async (category: Category): Promise<Category> => {
-  let newCategory = new Category(
-    category.name,
-    category.description,
-    category.id
-  );
+  let newCategory = new Category(category.name, category.description);
   await categoryRepository.save(newCategory);
   return newCategory;
 };

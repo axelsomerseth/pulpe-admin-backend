@@ -1,11 +1,10 @@
-import { Product } from "../types/products";
+import { Product } from "../db/entities/products";
+import { AppDataSource } from "../db/connection";
 
-// TODO: import db connection
-const TABLE_NAME = "products";
+const productRepository = AppDataSource.getRepository(Product);
 
 const findProducts = async (): Promise<Product[]> => {
-  let results: Product[] = [];
-  // TODO: implement database and return a list of products.
+  let results = await productRepository.find();
   return results;
 };
 
@@ -13,23 +12,50 @@ const searchForProducts = async (search: string) => {
   // TODO: Implement database and return searched products by the given search. Must do it case-insensitive.
 };
 
-const findProductById = async (productId: number) => {
-  // let result: Product = {};
-  // TODO: Implement database and return one product by the given id.
-  // return result;
+const findProductById = async (productId: number): Promise<Product | null> => {
+  let result = await productRepository.findOneBy({ id: productId });
+  return result;
 };
 
-const addProduct = async (product: Product) => {
-  // TODO: return the added product with his ID.
+const addProduct = async (product: Product): Promise<Product> => {
+  let newProduct = new Product(
+    product.name,
+    product.description,
+    product.categoryId,
+    product.price,
+    product.stock
+  );
+  await productRepository.save(newProduct);
+  return newProduct;
 };
 
-const editProduct = async (product: Product) => {
-  // TODO: return the edited product.
+const editProduct = async (product: Product): Promise<Product | null> => {
+  const productToUpdate = await productRepository.findOneBy({ id: product.id });
+
+  if (productToUpdate === null) return null;
+
+  productToUpdate.name = product.name;
+  productToUpdate.description = product.description;
+  productToUpdate.categoryId = product.categoryId;
+  productToUpdate.price = product.price;
+  productToUpdate.stock = product.stock;
+  productToUpdate.updatedAt = new Date();
+  await productRepository.save(productToUpdate);
+
+  return productToUpdate;
 };
 
-const removeProduct = async (productId: number) => {
-  // TODO: return the deleted rows
-  return { deletedRows: 0 };
+const removeProduct = async (
+  productId: number
+): Promise<{ isDeleted: boolean }> => {
+  const productToRemove = await productRepository.findOneBy({
+    id: productId,
+  });
+
+  if (productToRemove === null) return { isDeleted: false };
+
+  await productRepository.remove(productToRemove);
+  return { isDeleted: true };
 };
 
 export {

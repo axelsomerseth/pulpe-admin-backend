@@ -6,28 +6,43 @@ class Transaction {
   id?: number;
 
   @Column()
-  productId?: number;
+  productId: number;
 
   @Column()
-  movement?: number;
+  movement: number;
 
   @Column()
-  quantity?: number;
+  quantity: number;
 
   @Column({ length: 25 })
-  type?: string;
+  type: string;
 
   @Column({ type: "text" })
-  description?: string;
+  description: string;
 
   @Column()
-  createdAt?: Date;
+  createdAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
   updatedAt?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   deletedAt?: Date;
+
+  constructor(
+    productId: number,
+    movement: number,
+    quantity: number,
+    type: string,
+    description: string
+  ) {
+    this.productId = productId;
+    this.movement = movement;
+    this.quantity = quantity;
+    this.type = type;
+    this.description = description;
+    this.createdAt = new Date();
+  }
 }
 
 export { Transaction };

@@ -18,24 +18,33 @@ class Product {
   categoryId: number;
 
   @Column()
-  price?: number;
+  price: number;
 
   @Column()
-  stock?: number;
+  stock: number;
 
   @Column()
-  createdAt?: Date;
+  createdAt: Date;
 
-  @Column()
+  @Column({ nullable: true })
   updatedAt?: Date;
 
-  @Column()
+  @Column({ nullable: true })
   deletedAt?: Date;
 
-  constructor(name: string, description: string, categoryId: number) {
+  constructor(
+    name: string,
+    description: string,
+    categoryId: number,
+    price: number,
+    stock: number
+  ) {
     this.name = name;
     this.description = description;
     this.categoryId = categoryId;
+    this.price = price;
+    this.stock = stock;
+    this.createdAt = new Date();
   }
 }
 

@@ -9,12 +9,14 @@ import {
 } from "../repository/categories";
 
 const listCategories: RequestHandler = async (req: Request, res: Response) => {
-  const page = req.query?.page || 1;
-  const size = req.query?.size || 10;
+  // TODO: implement pagination.
+  // const page = (req.query?.page as unknown as number) || 1;
+  // const size = (req.query?.size as unknown as number) || 10;
   const list = await findCategories();
+  res.status(200);
   res.send({
-    page,
-    size,
+    page: 1,
+    // size: list.length,
     data: list,
   });
 };
@@ -43,13 +45,10 @@ const createCategory: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const updateCategory: RequestHandler = async (req: Request, res: Response) => {
-  const editedCategory = new Category(
-    req.body?.name,
-    req.body?.description,
-    parseInt(req.params?.categoryId)
-  );
+  const editedCategory = new Category(req.body?.name, req.body?.description);
+  editedCategory.id = req.params?.categoryId as unknown as number;
   const updated = await editCategory(editedCategory);
-  if (updated?.id) {
+  if (updated) {
     res.status(200);
     res.json(updated);
   } else {
@@ -59,8 +58,8 @@ const updateCategory: RequestHandler = async (req: Request, res: Response) => {
 
 const deleteCategory: RequestHandler = async (req: Request, res: Response) => {
   const categoryId = req.params?.categoryId as unknown as number;
-  const deleted = await removeCategory(categoryId);
-  if (deleted.isDeleted) {
+  const result = await removeCategory(categoryId);
+  if (result.isDeleted) {
     res.sendStatus(204);
   } else {
     res.sendStatus(404);
