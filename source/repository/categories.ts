@@ -8,17 +8,18 @@ const findCategories = async (): Promise<Category[]> => {
   return results;
 };
 
+const addCategory = async (category: Category): Promise<Category> => {
+  let newCategory = new Category(category.name, category.description);
+  newCategory.createdAt = new Date();
+  await categoryRepository.save(newCategory);
+  return newCategory;
+};
+
 const findCategoryById = async (
   categoryId: number
 ): Promise<Category | null> => {
   let result = await categoryRepository.findOneBy({ id: categoryId });
   return result;
-};
-
-const addCategory = async (category: Category): Promise<Category> => {
-  let newCategory = new Category(category.name, category.description);
-  await categoryRepository.save(newCategory);
-  return newCategory;
 };
 
 const editCategory = async (category: Category): Promise<Category | null> => {
@@ -31,8 +32,8 @@ const editCategory = async (category: Category): Promise<Category | null> => {
   categoryToUpdate.name = category.name;
   categoryToUpdate.description = category.description;
   categoryToUpdate.updatedAt = new Date();
-  await categoryRepository.save(categoryToUpdate);
 
+  await categoryRepository.save(categoryToUpdate);
   return categoryToUpdate;
 };
 

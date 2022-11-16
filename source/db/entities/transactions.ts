@@ -21,7 +21,7 @@ class Transaction {
   description: string;
 
   @Column()
-  createdAt: Date;
+  createdAt?: Date;
 
   @Column({ nullable: true })
   updatedAt?: Date;
@@ -41,7 +41,6 @@ class Transaction {
     this.quantity = quantity;
     this.type = type;
     this.description = description;
-    this.createdAt = new Date();
   }
 }
 

@@ -24,7 +24,7 @@ class Product {
   stock: number;
 
   @Column()
-  createdAt: Date;
+  createdAt?: Date;
 
   @Column({ nullable: true })
   updatedAt?: Date;
@@ -44,7 +44,6 @@ class Product {
     this.categoryId = categoryId;
     this.price = price;
     this.stock = stock;
-    this.createdAt = new Date();
   }
 }
 

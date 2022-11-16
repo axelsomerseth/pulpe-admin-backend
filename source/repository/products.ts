@@ -12,11 +12,6 @@ const searchForProducts = async (search: string) => {
   // TODO: Implement database and return searched products by the given search. Must do it case-insensitive.
 };
 
-const findProductById = async (productId: number): Promise<Product | null> => {
-  let result = await productRepository.findOneBy({ id: productId });
-  return result;
-};
-
 const addProduct = async (product: Product): Promise<Product> => {
   let newProduct = new Product(
     product.name,
@@ -25,8 +20,14 @@ const addProduct = async (product: Product): Promise<Product> => {
     product.price,
     product.stock
   );
+  newProduct.createdAt = new Date();
   await productRepository.save(newProduct);
   return newProduct;
+};
+
+const findProductById = async (productId: number): Promise<Product | null> => {
+  let result = await productRepository.findOneBy({ id: productId });
+  return result;
 };
 
 const editProduct = async (product: Product): Promise<Product | null> => {
@@ -40,8 +41,8 @@ const editProduct = async (product: Product): Promise<Product | null> => {
   productToUpdate.price = product.price;
   productToUpdate.stock = product.stock;
   productToUpdate.updatedAt = new Date();
-  await productRepository.save(productToUpdate);
 
+  await productRepository.save(productToUpdate);
   return productToUpdate;
 };
 

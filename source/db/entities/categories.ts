@@ -12,7 +12,7 @@ class Category {
   description?: string;
 
   @Column()
-  createdAt: Date;
+  createdAt?: Date;
 
   @Column({ nullable: true })
   updatedAt?: Date;
@@ -23,7 +23,6 @@ class Category {
   constructor(name: string, description?: string) {
     this.name = name;
     this.description = description;
-    this.createdAt = new Date();
   }
 }
 

@@ -30,7 +30,7 @@ class Person {
   password: string;
 
   @Column()
-  createdAt: Date;
+  createdAt?: Date;
 
   @Column({ nullable: true })
   updatedAt?: Date;
@@ -41,7 +41,6 @@ class Person {
   constructor(email: string, password: string) {
     this.email = email;
     this.password = password;
-    this.createdAt = new Date();
   }
 }
 
