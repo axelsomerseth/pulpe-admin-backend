@@ -1,13 +1,17 @@
 #!/usr/bin/env node
 
+// Loading environment variables
 import * as dotenv from "dotenv";
-import http from "http";
-import { app } from "./app";
-
 dotenv.config();
 
-const port = process.env.PORT || 5000;
+import http from "http";
+import { app } from "./app";
+import "reflect-metadata";
+import { connectDB } from "./db/connection";
 
+connectDB();
+
+const port = process.env.PORT || 5000;
 app.set("port", port);
 
 const server = http.createServer(app);
