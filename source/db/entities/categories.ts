@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Category {
+class Category {
   @PrimaryGeneratedColumn()
   id?: number;
 
@@ -20,3 +20,5 @@ export class Category {
   @Column()
   deletedAt?: Date;
 }
+
+export { Category };
