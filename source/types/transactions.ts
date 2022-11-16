@@ -21,7 +21,7 @@ enum TransactionTypes {
   ItemsRemovedThroughCycleCounts = "ItemsRemovedThroughCycleCounts",
 }
 
-interface Transaction {
+interface ITransaction {
   id?: number;
   productId: number;
   movement: Movement;
@@ -33,4 +33,4 @@ interface Transaction {
   deletedAt?: Date;
 }
 
-export { Transaction, Movement, TransactionTypes };
+export { ITransaction, Movement, TransactionTypes };

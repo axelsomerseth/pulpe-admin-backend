@@ -1,4 +1,4 @@
-interface User {
+interface IPerson {
   id?: number;
   firstName: string;
   middleName: string;
@@ -8,4 +8,4 @@ interface User {
   phone?: string;
 }
 
-export { User };
+export { IPerson };

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Product } from "../types/products";
+import { Product } from "../db/entities/products";
 import {
   listProducts,
   readProduct,

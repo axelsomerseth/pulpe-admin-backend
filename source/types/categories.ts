@@ -1,4 +1,4 @@
-interface Category {
+interface ICategory {
   id?: number;
   name: string;
   description?: string;
@@ -7,4 +7,4 @@ interface Category {
   deletedAt?: Date;
 }
 
-export { Category };
+export { ICategory };

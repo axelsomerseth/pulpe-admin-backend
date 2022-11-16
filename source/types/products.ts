@@ -1,4 +1,4 @@
-interface Product {
+interface IProduct {
   id?: number;
   name: string;
   description: string;
@@ -10,4 +10,4 @@ interface Product {
   deletedAt?: Date;
 }
 
-export { Product };
+export { IProduct };

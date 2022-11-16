@@ -8,7 +8,7 @@
 //   removeProduct,
 // } from "../repository/products";
 import { RequestHandler, Request, Response } from "express";
-import { Product } from "../types/products";
+import { Product } from "../db/entities/products";
 
 const listProducts: RequestHandler = async (req: Request, res: Response) => {
   const page = req.query?.page || 1;

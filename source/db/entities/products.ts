@@ -9,13 +9,13 @@ class Product {
   uuid?: string;
 
   @Column({ length: 150 })
-  name?: string;
+  name: string;
 
   @Column({ type: "text" })
-  description?: string;
+  description: string;
 
   @Column()
-  categoryId?: number;
+  categoryId: number;
 
   @Column()
   price?: number;
@@ -31,6 +31,12 @@ class Product {
 
   @Column()
   deletedAt?: Date;
+
+  constructor(name: string, description: string, categoryId: number) {
+    this.name = name;
+    this.description = description;
+    this.categoryId = categoryId;
+  }
 }
 
 export { Product };

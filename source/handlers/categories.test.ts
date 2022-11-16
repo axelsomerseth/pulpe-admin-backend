@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Category } from "../types/categories";
+import { Category } from "../db/entities/categories";
 import {
   listCategories,
   readCategory,

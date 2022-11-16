@@ -1,11 +1,17 @@
 import { RequestHandler, Request, Response } from "express";
-import { Category } from "../types/categories";
+import { Category } from "../db/entities/categories";
+import {
+  findCategories,
+  addCategory,
+  findCategoryById,
+  editCategory,
+  removeCategory,
+} from "../repository/categories";
 
 const listCategories: RequestHandler = async (req: Request, res: Response) => {
   const page = req.query?.page || 1;
   const size = req.query?.size || 10;
-  // const list: Category[] = await findCategories();
-  const list: Category[] = [];
+  const list = await findCategories();
   res.send({
     page,
     size,
@@ -14,27 +20,22 @@ const listCategories: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const readCategory: RequestHandler = async (req: Request, res: Response) => {
-  const categoryId = req.params?.categoryId;
-  // const found = await findCategoryById(categoryId);
-  const found: Category[] = [];
-  if (found.length) {
+  const categoryId = req.params?.categoryId as unknown as number;
+  const found = await findCategoryById(categoryId);
+  if (found) {
     res.status(200);
-    res.send(found[0]);
+    res.send(found);
   } else {
     res.sendStatus(404);
   }
 };
 
 const createCategory: RequestHandler = async (req: Request, res: Response) => {
-  const newCategory: Category = {
-    name: req.body?.name,
-    description: req.body?.description,
-  };
-  // const created = await addCategory(newCategory);
-  const created: Category[] = [];
-  if (created.length) {
+  const newCategory = new Category(req.body?.name, req.body?.description);
+  const created = await addCategory(newCategory);
+  if (created.id) {
     res.status(201);
-    res.send(created[0]);
+    res.send(created);
   } else {
     res.status(500);
     res.send();
@@ -42,26 +43,24 @@ const createCategory: RequestHandler = async (req: Request, res: Response) => {
 };
 
 const updateCategory: RequestHandler = async (req: Request, res: Response) => {
-  const editedCategory: Category = {
-    id: parseInt(req.params?.categoryId),
-    name: req.body?.name,
-    description: req.body?.description,
-  };
-  // const updated = await editCategory(editedCategory);
-  const updated: Category[] = [];
-  if (updated.length) {
+  const editedCategory = new Category(
+    req.body?.name,
+    req.body?.description,
+    parseInt(req.params?.categoryId)
+  );
+  const updated = await editCategory(editedCategory);
+  if (updated?.id) {
     res.status(200);
-    res.json(updated[0]);
+    res.json(updated);
   } else {
     res.sendStatus(404);
   }
 };
 
 const deleteCategory: RequestHandler = async (req: Request, res: Response) => {
-  const categoryId = req.params?.categoryId;
-  // const deleted = await removeCategory(categoryId);
-  const deleted = { deletedRows: 0 };
-  if (deleted.deletedRows) {
+  const categoryId = req.params?.categoryId as unknown as number;
+  const deleted = await removeCategory(categoryId);
+  if (deleted.isDeleted) {
     res.sendStatus(204);
   } else {
     res.sendStatus(404);

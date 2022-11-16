@@ -1,41 +1,56 @@
-import { Category } from "../types/categories";
+import { Category } from "../db/entities/categories";
+import { AppDataSource } from "../db/connection";
 
-// TODO: import db connection
-const TABLE_NAME = "categories";
+const categoryRepository = AppDataSource.getRepository(Category);
 
 const findCategories = async (): Promise<Category[]> => {
-  let results: Category[] = [];
-  // TODO: implement database.
+  let results = await categoryRepository.find();
   return results;
 };
 
-const findCategoryById = async (categoryId: number): Promise<Category> => {
-  let result: Category = { name: "" };
-  // TODO: implement database.
-  // TODO: implement notFound case.
+const findCategoryById = async (
+  categoryId: number
+): Promise<Category | null> => {
+  let result = await categoryRepository.findOneBy({ id: categoryId });
   return result;
 };
 
 const addCategory = async (category: Category): Promise<Category> => {
-  let result: Category = { ...category };
-  // TODO: implement database.
-  return result;
+  let newCategory = new Category(
+    category.name,
+    category.description,
+    category.id
+  );
+  await categoryRepository.save(newCategory);
+  return newCategory;
 };
 
-const editCategory = async (category: Category): Promise<Category> => {
-  let result: Category = { ...category };
-  const found = findCategoryById(category.id as number);
-  // TODO: implement database.
-  // TODO: implement notFound case.
-  return result;
+const editCategory = async (category: Category): Promise<Category | null> => {
+  const categoryToUpdate = await categoryRepository.findOneBy({
+    id: category.id,
+  });
+
+  if (categoryToUpdate === null) return null;
+
+  categoryToUpdate.name = category.name;
+  categoryToUpdate.description = category.description;
+  categoryToUpdate.updatedAt = new Date();
+  await categoryRepository.save(categoryToUpdate);
+
+  return categoryToUpdate;
 };
 
 const removeCategory = async (
   categoryId: number
-): Promise<{ deletedRows: number }> => {
-  // TODO: implement notFound case.
-  // TODO: return deleted rows.
-  return { deletedRows: 0 };
+): Promise<{ isDeleted: boolean }> => {
+  const categoryToRemove = await categoryRepository.findOneBy({
+    id: categoryId,
+  });
+
+  if (categoryToRemove === null) return { isDeleted: false };
+
+  await categoryRepository.remove(categoryToRemove);
+  return { isDeleted: true };
 };
 
 export {
