@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
-// Loading environment variables
-import * as dotenv from "dotenv";
-dotenv.config();
-
-import http from "http";
-import { app } from "./app";
+// reflect-metadata shim, decorators for typeORM
 import "reflect-metadata";
 import { connectDB } from "./db/connection";
 
 connectDB();
+
+import http from "http";
+import { app } from "./app";
 
 const port = process.env.PORT || 5000;
 app.set("port", port);

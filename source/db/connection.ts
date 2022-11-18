@@ -1,16 +1,36 @@
-import "reflect-metadata";
+// Loading environment variables here to use it with TypeORM CLI.
+import * as dotenv from "dotenv";
+dotenv.config();
+
+// import "reflect-metadata";
 import { DataSource } from "typeorm";
+
+// Entities
 import { Category } from "./entities/categories";
 import { Product } from "./entities/products";
 import { Transaction } from "./entities/transactions";
 import { Person } from "./entities/persons";
 
+// Migrations
+import { CategoryMigration1668740371045 } from "./migrations/1668740371045-CategoryMigration";
+import { ProductMigration1668740557066 } from "./migrations/1668740557066-ProductMigration";
+import { TransactionMigration1668740700298 } from "./migrations/1668740700298-TransactionMigration";
+import { PersonMigration1668740901099 } from "./migrations/1668740901099-PersonMigration";
+
 const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.DATABASE_URL,
   entities: [Category, Product, Transaction, Person],
-  synchronize: true,
+  migrations: [
+    CategoryMigration1668740371045,
+    ProductMigration1668740557066,
+    TransactionMigration1668740700298,
+    PersonMigration1668740901099,
+  ],
+  migrationsTableName: "migration",
+  synchronize: false, // it's unsafe to use synchronize === true in production
   logging: process.env.MODE === "development",
+  applicationName: "pulpe_admin",
 });
 
 const connectDB = () => {

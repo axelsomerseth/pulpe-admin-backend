@@ -12,7 +12,11 @@
     "start": "node ./build/index.js",
     "dev": "npx ts-node ./source/index.ts",
     "build": "npx tsc",
-    "test": "npx jest"
+    "test": "npx jest",
+    "typeorm": "typeorm-ts-node-esm",
+    "migration:run": "typeorm-ts-node-esm migration:run -d ./source/db/connection.ts",
+    "migration:revert": "typeorm-ts-node-esm migration:revert -d ./source/db/connection.ts",
+    "migration:show": "typeorm-ts-node-esm migration:show -d ./source/db/connection.ts"
   },
   "repository": {
     "type": "git",

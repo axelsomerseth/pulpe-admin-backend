@@ -35,3 +35,33 @@
 ├── README.md
 └── tsconfig.json
 ```
+
+## How to install dependencies:
+
+```sh
+npm install
+```
+
+## Show migrations list
+
+```sh
+npm run typeorm migration:show -- -d ./source/db/connection.ts
+```
+
+## How to run migrations (+ up):
+
+```sh
+npm run typeorm migration:run -- -d ./source/db/connection.ts
+```
+
+## How to revert migrations (- down):
+
+```sh
+npm run typeorm migration:revert -- -d ./source/db/connection.ts
+```
+
+## How to create a migration:
+
+```sh
+npm run typeorm migration:create -- ./source/db/migrations/
+```
