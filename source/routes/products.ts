@@ -13,9 +13,9 @@ const router: Router = express.Router();
 
 router.get("/", listProducts);
 
-router.get("/:productId", readProduct);
-
 router.post("/", validate(productSchema.create), createProduct);
+
+router.get("/:productId", readProduct);
 
 router.put("/:productId", validate(productSchema.update), updateProduct);
 

@@ -13,9 +13,9 @@ const router: Router = express.Router();
 
 router.get("/", listCategories);
 
-router.get("/:categoryId", readCategory);
-
 router.post("/", validate(categorySchema.create), createCategory);
+
+router.get("/:categoryId", readCategory);
 
 router.put("/:categoryId", validate(categorySchema.update), updateCategory);
 

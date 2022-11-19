@@ -10,7 +10,7 @@ import { engine } from "express-handlebars";
 import indexRouter from "./routes/index";
 import categoriesRouter from "./routes/categories";
 import productsRouter from "./routes/products";
-// import transactionsRouter from "./routes/transactions";
+import transactionsRouter from "./routes/transactions";
 import viewsRouter from "./routes/views";
 // import authRouter from "./routes/auth";
 
@@ -38,7 +38,7 @@ app.use(helmet()); // 3rd party plugin: secure your Express apps by setting vari
 app.use("/", indexRouter);
 app.use("/categories", categoriesRouter);
 app.use("/products", productsRouter);
-// app.use("/transactions", transactionsRouter);
+app.use("/transactions", transactionsRouter);
 // app.use("/auth", authRouter);
 
 // static files
