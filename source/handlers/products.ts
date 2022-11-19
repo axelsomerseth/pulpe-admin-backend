@@ -29,17 +29,6 @@ const listProducts: RequestHandler = async (req: Request, res: Response) => {
   });
 };
 
-const readProduct: RequestHandler = async (req: Request, res: Response) => {
-  const productId = req.params?.productId as unknown as number;
-  const found = await findProductById(productId);
-  if (found?.id) {
-    res.status(200);
-    res.json(found);
-  } else {
-    res.sendStatus(404);
-  }
-};
-
 const createProduct: RequestHandler = async (req: Request, res: Response) => {
   const newProduct = new Product(
     req.body?.name,
@@ -54,6 +43,17 @@ const createProduct: RequestHandler = async (req: Request, res: Response) => {
     res.json(created);
   } else {
     res.sendStatus(500);
+  }
+};
+
+const readProduct: RequestHandler = async (req: Request, res: Response) => {
+  const productId = req.params?.productId as unknown as number;
+  const found = await findProductById(productId);
+  if (found) {
+    res.status(200);
+    res.json(found);
+  } else {
+    res.sendStatus(404);
   }
 };
 
