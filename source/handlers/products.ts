@@ -2,7 +2,7 @@ import { RequestHandler, Request, Response } from "express";
 import { Product } from "../db/entities/products";
 import {
   findProducts,
-  searchForProducts,
+  findProductsByName,
   findProductById,
   addProduct,
   editProduct,
@@ -17,7 +17,7 @@ const listProducts: RequestHandler = async (req: Request, res: Response) => {
   let list: Product[] = [];
   if (search) {
     // TODO: implement search
-    // list = await searchForProducts(search);
+    list = await findProductsByName(search as unknown as string);
   } else {
     list = await findProducts();
   }

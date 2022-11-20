@@ -1,5 +1,6 @@
 import { Product } from "../db/entities/products";
 import { AppDataSource } from "../db/connection";
+import { ILike } from "typeorm";
 
 const productRepository = AppDataSource.getRepository(Product);
 
@@ -8,8 +9,9 @@ const findProducts = async (): Promise<Product[]> => {
   return results;
 };
 
-const searchForProducts = async (search: string) => {
-  // TODO: Implement database and return searched products by the given search. Must do it case-insensitive.
+const findProductsByName = async (search: string): Promise<Product[]> => {
+  let result = await productRepository.findBy({ name: ILike(`%${search}%`) });
+  return result;
 };
 
 const addProduct = async (product: Product): Promise<Product> => {
@@ -77,7 +79,7 @@ const removeProduct = async (
 
 export {
   findProducts,
-  searchForProducts,
+  findProductsByName,
   findProductById,
   addProduct,
   editProduct,
