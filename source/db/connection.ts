@@ -41,7 +41,7 @@ const connectDB = () => {
       // here you can start to work with your database
       if (connection.isInitialized) {
         console.log(
-          `Database "${connection.driver.schema}.${connection.driver.database}" connected successfully`
+          `Database "${connection.driver.database}" connected successfully`
         );
       }
     })

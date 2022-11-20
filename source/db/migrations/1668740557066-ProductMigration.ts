@@ -14,7 +14,7 @@ class ProductMigration1668740557066 implements MigrationInterface {
         "createdAt" TIMESTAMP NOT NULL,
         "updatedAt" TIMESTAMP,
         "deletedAt" TIMESTAMP,
-        CONSTRAINT "product_id_uuid_pkey" PRIMARY KEY ("id", "uuid"),
+        CONSTRAINT "product_id_pkey" PRIMARY KEY ("id"),
         CONSTRAINT "product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
       )`
     );

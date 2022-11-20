@@ -16,7 +16,7 @@ class PersonMigration1668740901099 implements MigrationInterface {
         "createdAt" TIMESTAMP NOT NULL,
         "updatedAt" TIMESTAMP,
         "deletedAt" TIMESTAMP,
-        CONSTRAINT "person_id_uuid_pkey" PRIMARY KEY ("id", "uuid")
+        CONSTRAINT "person_id_pkey" PRIMARY KEY ("id")
       )`
     );
   }

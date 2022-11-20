@@ -15,7 +15,7 @@ class Product {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @PrimaryGeneratedColumn("uuid")
+  @Column({ type: "uuid" })
   uuid?: string;
 
   @Column({ length: 150 })

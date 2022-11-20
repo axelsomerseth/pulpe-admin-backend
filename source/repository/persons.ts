@@ -12,7 +12,13 @@ const addPerson = async (person: Person): Promise<Person> => {
   // TODO: implement hashing for the password property.
   const newPerson = new Person(person.email, person.password);
   newPerson.createdAt = new Date();
-  await personRepository.save(newPerson);
+
+  try {
+    await personRepository.save(newPerson);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return newPerson;
 };
 
@@ -33,7 +39,12 @@ const editPerson = async (person: Person): Promise<Person | null> => {
   personToUpdate.phone = person.phone;
   personToUpdate.updatedAt = new Date();
 
-  await personRepository.save(personToUpdate);
+  try {
+    await personRepository.save(personToUpdate);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return personToUpdate;
 };
 
@@ -46,7 +57,12 @@ const removePerson = async (
 
   if (personToRemove === null) return { isDeleted: false };
 
-  await personRepository.remove(personToRemove);
+  try {
+    await personRepository.remove(personToRemove);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return { isDeleted: true };
 };
 

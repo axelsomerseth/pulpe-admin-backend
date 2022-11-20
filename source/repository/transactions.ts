@@ -19,7 +19,13 @@ const addTransaction = async (
     transaction.description
   );
   newTransaction.createdAt = new Date();
-  await transactionRepository.save(newTransaction);
+
+  try {
+    await transactionRepository.save(newTransaction);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return newTransaction;
 };
 
@@ -46,7 +52,12 @@ const editTransaction = async (
   transactionToUpdate.description = transaction.description;
   transactionToUpdate.updatedAt = new Date();
 
-  await transactionRepository.save(transactionToUpdate);
+  try {
+    await transactionRepository.save(transactionToUpdate);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return transactionToUpdate;
 };
 
@@ -59,7 +70,12 @@ const removeTransaction = async (
 
   if (transactionToRemove === null) return { isDeleted: false };
 
-  await transactionRepository.remove(transactionToRemove);
+  try {
+    await transactionRepository.remove(transactionToRemove);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return { isDeleted: true };
 };
 

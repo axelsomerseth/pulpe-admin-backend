@@ -11,7 +11,13 @@ const findCategories = async (): Promise<Category[]> => {
 const addCategory = async (category: Category): Promise<Category> => {
   let newCategory = new Category(category.name, category.description);
   newCategory.createdAt = new Date();
-  await categoryRepository.save(newCategory);
+
+  try {
+    await categoryRepository.save(newCategory);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return newCategory;
 };
 
@@ -33,7 +39,12 @@ const editCategory = async (category: Category): Promise<Category | null> => {
   categoryToUpdate.description = category.description;
   categoryToUpdate.updatedAt = new Date();
 
-  await categoryRepository.save(categoryToUpdate);
+  try {
+    await categoryRepository.save(categoryToUpdate);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return categoryToUpdate;
 };
 
@@ -46,7 +57,12 @@ const removeCategory = async (
 
   if (categoryToRemove === null) return { isDeleted: false };
 
-  await categoryRepository.remove(categoryToRemove);
+  try {
+    await categoryRepository.remove(categoryToRemove);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return { isDeleted: true };
 };
 

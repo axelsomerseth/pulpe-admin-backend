@@ -21,7 +21,13 @@ const addProduct = async (product: Product): Promise<Product> => {
     product.stock
   );
   newProduct.createdAt = new Date();
-  await productRepository.save(newProduct);
+
+  try {
+    await productRepository.save(newProduct);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return newProduct;
 };
 
@@ -42,7 +48,12 @@ const editProduct = async (product: Product): Promise<Product | null> => {
   productToUpdate.stock = product.stock;
   productToUpdate.updatedAt = new Date();
 
-  await productRepository.save(productToUpdate);
+  try {
+    await productRepository.save(productToUpdate);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return productToUpdate;
 };
 
@@ -55,7 +66,12 @@ const removeProduct = async (
 
   if (productToRemove === null) return { isDeleted: false };
 
-  await productRepository.remove(productToRemove);
+  try {
+    await productRepository.remove(productToRemove);
+  } catch (err: unknown) {
+    console.error(err);
+  }
+
   return { isDeleted: true };
 };
 
