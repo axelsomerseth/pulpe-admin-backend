@@ -16,7 +16,6 @@ const listProducts: RequestHandler = async (req: Request, res: Response) => {
   const search = req.query?.search || "";
   let list: Product[] = [];
   if (search) {
-    // TODO: implement search
     list = await findProductsByName(search as unknown as string);
   } else {
     list = await findProducts();
