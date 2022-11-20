@@ -1,10 +1,10 @@
 import { RequestHandler, Request, Response, NextFunction } from "express";
-import { ObjectSchema, ValidationResult } from "joi";
+import { Schema, ObjectSchema, ArraySchema, ValidationResult } from "joi";
 
 // Validate incoming HTTP requests with Joi through a middleware
-const validate = (schema: ObjectSchema): RequestHandler => {
+const validate = (schema: Schema): RequestHandler => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const result: ValidationResult = schema.validate({ ...req.body });
+    let result: ValidationResult = schema.validate(req.body);
     if (result.error) {
       res.status(400);
       res.json({
@@ -15,5 +15,13 @@ const validate = (schema: ObjectSchema): RequestHandler => {
     next();
   };
 };
+
+// Type Guards
+function isObjectSchema(schema: Schema): schema is ObjectSchema {
+  return schema ? true : false;
+}
+function isArraySchema(schema: Schema): schema is ArraySchema {
+  return schema ? true : false;
+}
 
 export default validate;

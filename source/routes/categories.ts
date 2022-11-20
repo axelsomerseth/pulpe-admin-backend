@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 import {
   listCategories,
+  importCategories,
   readCategory,
   createCategory,
   updateCategory,
@@ -12,6 +13,8 @@ import { categorySchema } from "../schemas/category";
 const router: Router = express.Router();
 
 router.get("/", listCategories);
+
+router.post("/import", validate(categorySchema.import), importCategories);
 
 router.post("/", validate(categorySchema.create), createCategory);
 

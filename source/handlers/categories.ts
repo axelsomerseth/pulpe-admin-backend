@@ -1,7 +1,9 @@
 import { RequestHandler, Request, Response } from "express";
+import { send } from "process";
 import { Category } from "../db/entities/categories";
 import {
   findCategories,
+  addCategories,
   addCategory,
   findCategoryById,
   editCategory,
@@ -19,6 +21,24 @@ const listCategories: RequestHandler = async (req: Request, res: Response) => {
     // size: list.length,
     data: list,
   });
+};
+
+const importCategories: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const payload = req.body;
+  const categories: Category[] = [];
+  payload.forEach((elem: Category) => {
+    categories.push(new Category(elem?.name, elem?.description));
+  });
+  const result = await addCategories(categories);
+  if (result.imported) {
+    res.status(201);
+    res.send();
+  } else {
+    res.sendStatus(500);
+  }
 };
 
 const createCategory: RequestHandler = async (req: Request, res: Response) => {
@@ -67,6 +87,7 @@ const deleteCategory: RequestHandler = async (req: Request, res: Response) => {
 
 export {
   listCategories,
+  importCategories,
   readCategory,
   createCategory,
   updateCategory,
