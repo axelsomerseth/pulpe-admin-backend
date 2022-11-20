@@ -10,7 +10,16 @@ const findProducts = async (): Promise<Product[]> => {
 };
 
 const findProductsByName = async (search: string): Promise<Product[]> => {
-  let result = await productRepository.findBy({ name: ILike(`%${search}%`) });
+  let result = await productRepository.find({
+    where: { name: ILike(`%${search}%`) },
+    relations: {
+      category: true,
+    },
+    order: {
+      name: "ASC",
+    },
+    cache: true,
+  });
   return result;
 };
 
