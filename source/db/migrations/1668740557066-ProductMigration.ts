@@ -4,8 +4,8 @@ class ProductMigration1668740557066 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TABLE "product" (
-        "id" SERIAL NOT NULL,
-        "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(),
+        "id" SERIAL NOT NULL UNIQUE,
+        "uuid" uuid NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
         "name" character varying(150) NOT NULL,
         "description" text NOT NULL,
         "categoryId" integer NOT NULL,
@@ -14,7 +14,8 @@ class ProductMigration1668740557066 implements MigrationInterface {
         "createdAt" TIMESTAMP NOT NULL,
         "updatedAt" TIMESTAMP,
         "deletedAt" TIMESTAMP,
-        CONSTRAINT "PK_1812d0b221ff4d70360e1c133e3" PRIMARY KEY ("id", "uuid")
+        CONSTRAINT "product_id_uuid_pkey" PRIMARY KEY ("id", "uuid"),
+        CONSTRAINT "product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
       )`
     );
   }

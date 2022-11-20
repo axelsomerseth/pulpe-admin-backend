@@ -4,8 +4,8 @@ class PersonMigration1668740901099 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TABLE "person" (
-        "id" SERIAL NOT NULL,
-        "uuid" uuid NOT NULL DEFAULT uuid_generate_v4(),
+        "id" SERIAL NOT NULL UNIQUE,
+        "uuid" uuid NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
         "firstName" character varying(20),
         "middleName" character varying(20),
         "lastName" character varying(20),
@@ -16,7 +16,7 @@ class PersonMigration1668740901099 implements MigrationInterface {
         "createdAt" TIMESTAMP NOT NULL,
         "updatedAt" TIMESTAMP,
         "deletedAt" TIMESTAMP,
-        CONSTRAINT "PK_04363ff58ec20b1c7a9f76e2495" PRIMARY KEY ("id", "uuid")
+        CONSTRAINT "person_id_uuid_pkey" PRIMARY KEY ("id", "uuid")
       )`
     );
   }

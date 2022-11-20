@@ -4,7 +4,7 @@ class TransactionMigration1668740700298 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TABLE "transaction" (
-        "id" SERIAL NOT NULL,
+        "id" SERIAL NOT NULL UNIQUE,
         "productId" integer NOT NULL,
         "movement" integer NOT NULL,
         "quantity" integer NOT NULL,
@@ -13,7 +13,8 @@ class TransactionMigration1668740700298 implements MigrationInterface {
         "createdAt" TIMESTAMP NOT NULL,
         "updatedAt" TIMESTAMP,
         "deletedAt" TIMESTAMP,
-        CONSTRAINT "PK_89eadb93a89810556e1cbcd6ab9" PRIMARY KEY ("id")
+        CONSTRAINT "transaction_id_pkey" PRIMARY KEY ("id"),
+        CONSTRAINT "transaction_productId_fkey" FOREIGN KEY ("productId") REFERENCES "product"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
       )`
     );
   }

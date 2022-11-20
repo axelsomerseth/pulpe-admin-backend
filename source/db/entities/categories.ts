@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  Relation,
+} from "typeorm";
+import { Product } from "./products";
 
 @Entity()
 class Category {
@@ -19,6 +26,9 @@ class Category {
 
   @Column({ nullable: true })
   deletedAt?: Date;
+
+  @OneToMany(() => Product, (product) => product.category)
+  products?: Relation<Product[]>;
 
   constructor(name: string, description?: string) {
     this.name = name;

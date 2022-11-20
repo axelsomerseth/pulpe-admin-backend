@@ -1,4 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+  Relation,
+} from "typeorm";
+import { Category } from "./categories";
+import { Transaction } from "./transactions";
 
 @Entity()
 class Product {
@@ -17,6 +27,10 @@ class Product {
   @Column()
   categoryId: number;
 
+  @ManyToOne(() => Category, (category) => category.products)
+  @JoinColumn()
+  category?: Relation<Category>;
+
   @Column()
   price: number;
 
@@ -31,6 +45,9 @@ class Product {
 
   @Column({ nullable: true })
   deletedAt?: Date;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.product)
+  transactions?: Relation<Transaction[]>;
 
   constructor(
     name: string,

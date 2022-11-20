@@ -14,9 +14,10 @@
     "build": "npx tsc",
     "test": "npx jest",
     "typeorm": "typeorm-ts-node-esm",
-    "migration:run": "typeorm-ts-node-esm migration:run -d ./source/db/connection.ts",
-    "migration:revert": "typeorm-ts-node-esm migration:revert -d ./source/db/connection.ts",
-    "migration:show": "typeorm-ts-node-esm migration:show -d ./source/db/connection.ts"
+    "migration:run": "typeorm-ts-node-esm migration:run --dataSource ./source/db/connection.ts",
+    "migration:revert": "typeorm-ts-node-esm migration:revert --dataSource ./source/db/connection.ts",
+    "migration:show": "typeorm-ts-node-esm migration:show --dataSource ./source/db/connection.ts",
+    "migration:generate": "typeorm-ts-node-esm migration:generate ./source/db/migrations/ --dataSource ./source/db/connection.ts"
   },
   "repository": {
     "type": "git",

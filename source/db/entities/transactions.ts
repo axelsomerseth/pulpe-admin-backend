@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  Relation
+} from "typeorm";
+import { Product } from "./products";
 
 @Entity()
 class Transaction {
@@ -7,6 +15,10 @@ class Transaction {
 
   @Column()
   productId: number;
+
+  @ManyToOne(() => Product, (product) => product.transactions)
+  @JoinColumn()
+  product?: Relation<Product>;
 
   @Column()
   movement: number;
