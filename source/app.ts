@@ -11,16 +11,17 @@ import indexRouter from "./routes/index";
 import categoriesRouter from "./routes/categories";
 import productsRouter from "./routes/products";
 import transactionsRouter from "./routes/transactions";
+import authRouter from "./routes/auth";
 import viewsRouter from "./routes/views";
-// import authRouter from "./routes/auth";
 
+// Creating Express application.
 const app: Express = express();
 
-// custom middleware
+// Custom middleware.
 import requestTime from "./middlewares/requestTime";
 app.use(requestTime);
 
-// middleware (goes first than routes)
+// Middleware (goes first than routes).
 app.use(logger("dev"));
 app.use(cors()); // enable All CORS Requests
 app.use(express.json()); // for parsing application/json (body-parser)
@@ -28,23 +29,18 @@ app.use(express.urlencoded({ extended: false })); // for parsing application/x-w
 app.use(compression()); // 3rd party plugin: compresses all the responses
 app.use(helmet()); // 3rd party plugin: secure your Express apps by setting various HTTP headers
 
-// TODO: secure the server with basic auth.
-// app.use();
-
-// TODO: global error handler (if needed).
-// app.use();
-
-// define routes
+// TODO: secure the server routes with basic auth in selected routes (as needed).
+// Define routes
 app.use("/", indexRouter);
 app.use("/categories", categoriesRouter);
 app.use("/products", productsRouter);
 app.use("/transactions", transactionsRouter);
-// app.use("/auth", authRouter);
+app.use("/auth", authRouter);
 
-// static files
+// Static files.
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-// view/template engine
+// Views/template engine
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", path.join(__dirname, "views"));

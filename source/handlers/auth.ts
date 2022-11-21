@@ -1,22 +1,23 @@
 import { RequestHandler, Request, Response, NextFunction } from "express";
+import { Person } from "../db/entities/persons";
+import { authenticatePerson, findPersons } from "../repository/persons";
 
-const authenticate: RequestHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  // TODO: find username in database and return it without password.
+const signIn: RequestHandler = async (req: Request, res: Response) => {
+  const user = new Person(
+    req.body?.username as string,
+    req.body?.password as string
+  );
+  const person = await authenticatePerson(user);
+  if (!person) {
+    res.status(400);
+    res.json({ errorMessage: "Username or password is incorrect." });
+  } else {
+    res.status(200);
+    res.json(person);
+  }
 };
 
-const signIn: RequestHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  // TODO: create username in database.
-};
-
-const logIn: RequestHandler = (
+const logIn: RequestHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -24,7 +25,7 @@ const logIn: RequestHandler = (
   // TODO: start session.
 };
 
-const logOut: RequestHandler = (
+const logOut: RequestHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -32,7 +33,7 @@ const logOut: RequestHandler = (
   // TODO: quit session.
 };
 
-const myAccount: RequestHandler = (
+const myAccount: RequestHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -40,12 +41,10 @@ const myAccount: RequestHandler = (
   // TODO: find data of the actual logged in user without password.
 };
 
-const getAllUsers: RequestHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  // TODO: get all users without passwords.
+const getAllUsers: RequestHandler = async (req: Request, res: Response) => {
+  const persons = await findPersons();
+  res.status(200);
+  res.json(persons);
 };
 
-export { authenticate, signIn, logIn, logOut, getAllUsers, myAccount };
+export { signIn, logIn, logOut, getAllUsers, myAccount };
