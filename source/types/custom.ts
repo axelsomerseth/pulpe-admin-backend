@@ -2,3 +2,5 @@
 export const SUPPORTED_LANGUAGES = ["en", "es", "pt-br", "it"];
 
 export type Language = typeof SUPPORTED_LANGUAGES[number];
+
+export type RequestTime = number;

@@ -28,7 +28,7 @@ const authenticatePerson = async (person: Person): Promise<Person | null> => {
   if (!authenticatedPerson) return null;
 
   // Returning the person/user without password.
-  authenticatedPerson.password = "";
+  // authenticatedPerson.password = "";
   return authenticatedPerson;
 };
 

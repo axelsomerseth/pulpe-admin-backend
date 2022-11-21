@@ -7,8 +7,7 @@ const requestTime: RequestHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  // TODO: solve the custom property issue.
-  // req.requestTime = Date.now();
+  req.requestTime = Date.now();
   next();
 };
 

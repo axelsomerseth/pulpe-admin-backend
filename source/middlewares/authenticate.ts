@@ -37,7 +37,7 @@ const authenticateMiddleware: RequestHandler = async (
   }
 
   // Attach user to request object.
-  // req.person = authenticatedPerson;
+  req.person = authenticatedPerson;
   next();
 };
 
