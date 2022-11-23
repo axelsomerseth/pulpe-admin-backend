@@ -13,7 +13,7 @@ class Person {
   @Column({ length: 50 })
   username: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 150 })
   password: string;
 
   @Column({ length: 20, nullable: true })

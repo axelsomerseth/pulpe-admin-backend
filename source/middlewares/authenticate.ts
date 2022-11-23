@@ -10,11 +10,13 @@ const authenticateMiddleware: RequestHandler = async (
   // Check for basic auth header.
   const hasBasicAuthHeader = await hasBasicAuthorizationHeader(req);
   if (!hasBasicAuthHeader) {
-    return res.status(401).json({ message: "Missing Authorization Header" });
+    res.status(401);
+    res.json({ errorMessage: "Missing Authorization Header." });
+    return;
   }
 
   // Verify auth credentials.
-  const base64Credentials = req.headers?.authorization?.split(" ")[1];
+  const base64Credentials = req.headers.authorization?.split(" ")[1];
   const credentials = Buffer.from(
     base64Credentials as string,
     "base64"
@@ -31,13 +33,13 @@ const authenticateMiddleware: RequestHandler = async (
   const person = new Person(username, password);
   const authenticatedPerson = await authenticatePerson(person);
   if (!authenticatedPerson) {
-    return res
-      .status(401)
-      .json({ errorMessage: "Invalid Authentication Credentials." });
+    res.status(401);
+    res.json({ errorMessage: "Invalid Authentication Credentials." });
+    return;
   }
 
   // Attach user to request object.
-  req.person = authenticatedPerson;
+  req.person = authenticatedPerson as Person;
   next();
 };
 

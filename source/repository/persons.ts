@@ -1,5 +1,6 @@
 import { Person } from "../db/entities/persons";
 import { AppDataSource } from "../db/connection";
+import { hash256 } from "../utils/auth";
 
 const personRepository = AppDataSource.getRepository(Person);
 // TODO: remove this testPersons thing.
@@ -8,7 +9,7 @@ const testPersons: Person[] = [
     id: 1,
     uuid: "",
     username: "test",
-    password: "test",
+    password: hash256("test"),
     firstName: "Test",
     lastName: "User",
   },
@@ -22,7 +23,8 @@ const authenticatePerson = async (person: Person): Promise<Person | null> => {
   // });
 
   const authenticatedPerson = testPersons.find(
-    (p) => p.username === person.username && p.password === person.password
+    (p) =>
+      p.username === person.username && p.password === hash256(person.password)
   );
 
   if (!authenticatedPerson) return null;
@@ -39,15 +41,15 @@ const findPersons = async (): Promise<Person[]> => {
   return results;
 };
 
-const addPerson = async (person: Person): Promise<Person> => {
-  // TODO: implement hashing for the password property.
-  const newPerson = new Person(person.username, person.password);
+const addPerson = async (person: Person): Promise<Person | null> => {
+  const newPerson = new Person(person.username, hash256(person.password));
   newPerson.createdAt = new Date();
 
   try {
     await personRepository.save(newPerson);
   } catch (err: unknown) {
     console.error(err);
+    return null;
   }
 
   return newPerson;
@@ -67,6 +69,7 @@ const editPerson = async (person: Person): Promise<Person | null> => {
   personToUpdate.middleName = person.middleName;
   personToUpdate.lastName = person.lastName;
   personToUpdate.age = person.age;
+  personToUpdate.email = person.email;
   personToUpdate.phone = person.phone;
   personToUpdate.updatedAt = new Date();
 

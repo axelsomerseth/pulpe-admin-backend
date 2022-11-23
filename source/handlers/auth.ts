@@ -1,6 +1,25 @@
 import { RequestHandler, Request, Response, NextFunction } from "express";
 import { Person } from "../db/entities/persons";
-import { authenticatePerson, findPersons } from "../repository/persons";
+import {
+  addPerson,
+  authenticatePerson,
+  findPersons,
+} from "../repository/persons";
+
+const signUp: RequestHandler = async (req: Request, res: Response) => {
+  const user = new Person(
+    req.body?.username as string,
+    req.body?.password as string
+  );
+  const person = await addPerson(user);
+  if (!person) {
+    res.status(500);
+    res.json({ errorMessage: "Error while signing up." });
+  } else {
+    res.status(201);
+    res.json({ ...person, password: "" });
+  }
+};
 
 const signIn: RequestHandler = async (req: Request, res: Response) => {
   const user = new Person(
@@ -17,20 +36,13 @@ const signIn: RequestHandler = async (req: Request, res: Response) => {
   }
 };
 
-const logIn: RequestHandler = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  // TODO: start session.
-};
-
-const logOut: RequestHandler = async (
+const signOut: RequestHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   // TODO: quit session.
+  res.send("TODO: Sign out");
 };
 
 const myAccount: RequestHandler = async (
@@ -39,6 +51,7 @@ const myAccount: RequestHandler = async (
   next: NextFunction
 ) => {
   // TODO: find data of the actual logged in user without password.
+  res.send("TODO: myAccount");
 };
 
 const getAllUsers: RequestHandler = async (req: Request, res: Response) => {
@@ -47,4 +60,4 @@ const getAllUsers: RequestHandler = async (req: Request, res: Response) => {
   res.json(persons);
 };
 
-export { signIn, logIn, logOut, getAllUsers, myAccount };
+export { signUp, signIn, signOut, myAccount, getAllUsers };

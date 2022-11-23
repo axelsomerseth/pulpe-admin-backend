@@ -1,6 +1,7 @@
 // ? How to add custom properties on the Request object in Express
-// ? How to extend the Express Request object in TypeScript
+// ? How to extend the Request object from Express module in TypeScript
 // * https://blog.logrocket.com/extend-express-request-object-typescript/
+// * https://stackoverflow.com/questions/74514620/how-to-add-custom-properties-on-the-request-object-in-express-typescript/
 
 import { Person } from "../../db/entities/persons";
 import { Language, RequestTime } from "../custom";
