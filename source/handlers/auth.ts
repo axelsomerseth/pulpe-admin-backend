@@ -36,6 +36,7 @@ const signIn: RequestHandler = async (req: Request, res: Response) => {
   }
 };
 
+// ! Basic Authentication wasn't designed to manage logging out.
 const signOut: RequestHandler = async (
   req: Request,
   res: Response,
@@ -50,8 +51,14 @@ const myAccount: RequestHandler = async (
   res: Response,
   next: NextFunction
 ) => {
-  // TODO: find data of the actual logged in user without password.
-  res.send("TODO: myAccount");
+  const personSignedIn = req.person;
+  if (!personSignedIn?.username) {
+    res.status(401);
+    res.json({ errorMessage: "Not authorized." });
+  } else {
+    res.status(200);
+    res.json({ ...personSignedIn, password: "" });
+  }
 };
 
 const getAllUsers: RequestHandler = async (req: Request, res: Response) => {

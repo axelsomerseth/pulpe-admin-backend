@@ -3,34 +3,15 @@ import { AppDataSource } from "../db/connection";
 import { hash } from "../utils/auth";
 
 const personRepository = AppDataSource.getRepository(Person);
-// TODO: remove this testPersons thing.
-// const testPersons: Person[] = [
-//   {
-//     id: 1,
-//     uuid: "",
-//     username: "test",
-//     password: hash("test"),
-//     firstName: "Test",
-//     lastName: "User",
-//   },
-// ];
 
 const authenticatePerson = async (person: Person): Promise<Person | null> => {
-  // TODO: pass the password through a hash function.
   const authenticatedPerson = await personRepository.findOneBy({
     username: person.username,
     password: hash(person.password),
   });
 
-  // const authenticatedPerson = testPersons.find(
-  //   (p) =>
-  //     p.username === person.username && p.password === hash(person.password)
-  // );
-
   if (!authenticatedPerson) return null;
 
-  // Returning the person/user without password.
-  // authenticatedPerson.password = "";
   return authenticatedPerson;
 };
 
