@@ -36,14 +36,14 @@ const signIn: RequestHandler = async (req: Request, res: Response) => {
   }
 };
 
-// ! Basic Authentication wasn't designed to manage logging out.
+// ! Check out: Basic Authentication wasn't designed to manage logging out.
 const signOut: RequestHandler = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // TODO: quit session.
-  res.send("TODO: Sign out");
+  res.set("WWW-Authenticate", "Basic realm=Authorization Required");
+  return res.sendStatus(401);
 };
 
 const myAccount: RequestHandler = async (
