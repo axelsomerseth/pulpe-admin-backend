@@ -32,7 +32,7 @@ const signIn: RequestHandler = async (req: Request, res: Response) => {
     res.json({ errorMessage: "Username or password is incorrect." });
   } else {
     res.status(200);
-    res.json(person);
+    res.json({ ...person, password: "" });
   }
 };
 
