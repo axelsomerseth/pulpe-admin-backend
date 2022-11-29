@@ -1,5 +1,4 @@
 import { RequestHandler, Request, Response } from "express";
-import { send } from "process";
 import { Category } from "../db/entities/categories";
 import {
   findCategories,
