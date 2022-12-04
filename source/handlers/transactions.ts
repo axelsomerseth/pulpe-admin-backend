@@ -35,7 +35,7 @@ const createTransaction: RequestHandler = async (
     req.body?.description
   );
   const created = await addTransaction(newTransaction);
-  if (created.id) {
+  if (created?.id) {
     res.status(201);
     res.send(created);
   } else {

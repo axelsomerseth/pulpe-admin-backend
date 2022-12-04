@@ -1,3 +1,4 @@
+import { Product } from "../db/entities/products";
 import { Transaction } from "../db/entities/transactions";
 import { AppDataSource } from "../db/connection";
 
@@ -10,23 +11,53 @@ const findTransactions = async (): Promise<Transaction[]> => {
 
 const addTransaction = async (
   transaction: Transaction
-): Promise<Transaction> => {
+): Promise<Transaction | null> => {
+  const queryRunner = AppDataSource.createQueryRunner();
+  await queryRunner.connect();
+  await queryRunner.startTransaction();
   let newTransaction = new Transaction(
-    transaction.productId,
-    transaction.movement,
-    transaction.quantity,
-    transaction.type,
-    transaction.description
+    transaction.productId as number,
+    transaction.movement as number,
+    transaction.quantity as number,
+    transaction.type as string,
+    transaction.description as string
   );
   newTransaction.createdAt = new Date();
 
   try {
-    await transactionRepository.save(newTransaction);
-  } catch (err: unknown) {
-    console.error(err);
-  }
+    const product = await queryRunner.manager.findOneBy(Product, {
+      id: newTransaction.productId,
+    });
+    const newProduct = new Product(
+      product?.name as string,
+      product?.description as string,
+      product?.categoryId as number,
+      product?.price as number,
+      product?.stock as number
+    );
+    newProduct.id = product?.id;
+    newProduct.createdAt = product?.createdAt;
+    newProduct.updatedAt = new Date();
+    if (newTransaction.movement === 1) {
+      // 1 => In
+      newProduct.stock = newProduct.stock + newTransaction.quantity;
+    } else if (newTransaction.movement === 2) {
+      // 2 => Out
+      newProduct.stock = newProduct.stock - newTransaction.quantity;
+    }
 
-  return newTransaction;
+    await queryRunner.manager.save(newProduct);
+    await queryRunner.manager.save(newTransaction);
+
+    await queryRunner.commitTransaction();
+  } catch (error: unknown) {
+    console.error(error);
+    await queryRunner.rollbackTransaction();
+    return null;
+  } finally {
+    await queryRunner.release();
+    return newTransaction;
+  }
 };
 
 const findTransactionById = async (
