@@ -7,7 +7,7 @@ const category = {
 
 const categorySchema = {
   create: Joi.object(category),
-  update: Joi.object(category),
+  update: Joi.object({ ...category, id: Joi.number() }),
   import: Joi.array().items(Joi.object(category)),
 };
 

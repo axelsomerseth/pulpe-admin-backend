@@ -10,7 +10,7 @@ const product = {
 
 const productSchema = {
   create: Joi.object(product),
-  update: Joi.object(product),
+  update: Joi.object({ ...product, id: Joi.number() }),
 };
 
 export { productSchema };
