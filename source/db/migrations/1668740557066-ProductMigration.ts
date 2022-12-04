@@ -9,7 +9,7 @@ class ProductMigration1668740557066 implements MigrationInterface {
         "name" character varying(150) NOT NULL,
         "description" text NOT NULL,
         "categoryId" integer NOT NULL,
-        "price" integer NOT NULL,
+        "price" decimal NOT NULL,
         "stock" integer NOT NULL,
         "createdAt" TIMESTAMP NOT NULL,
         "updatedAt" TIMESTAMP,
