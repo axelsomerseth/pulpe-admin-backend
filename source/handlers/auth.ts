@@ -28,7 +28,7 @@ const signIn: RequestHandler = async (req: Request, res: Response) => {
   );
   const person = await authenticatePerson(user);
   if (!person) {
-    res.status(400);
+    res.status(401);
     res.json({ errorMessage: "Username or password is incorrect." });
   } else {
     res.status(200);
