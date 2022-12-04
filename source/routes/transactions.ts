@@ -8,21 +8,28 @@ import {
 } from "../handlers/transactions";
 import validate from "../middlewares/validate";
 import { transactionSchema } from "../schemas/transaction";
+import authenticateMiddleware from "../middlewares/authenticate";
 
 const router: Router = express.Router();
 
-router.get("/", listTransactions);
+router.get("/", authenticateMiddleware, listTransactions);
 
-router.post("/", validate(transactionSchema.create), createTransaction);
+router.post(
+  "/",
+  authenticateMiddleware,
+  validate(transactionSchema.create),
+  createTransaction
+);
 
-router.get("/:transactionId", readTransaction);
+router.get("/:transactionId", authenticateMiddleware, readTransaction);
 
 router.put(
   "/:transactionId",
+  authenticateMiddleware,
   validate(transactionSchema.update),
   updateTransaction
 );
 
-router.delete("/:transactionId", deleteTransaction);
+router.delete("/:transactionId", authenticateMiddleware, deleteTransaction);
 
 export default router;

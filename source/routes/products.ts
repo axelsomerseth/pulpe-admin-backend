@@ -8,17 +8,28 @@ import {
 } from "../handlers/products";
 import validate from "../middlewares/validate";
 import { productSchema } from "../schemas/product";
+import authenticateMiddleware from "../middlewares/authenticate";
 
 const router: Router = express.Router();
 
-router.get("/", listProducts);
+router.get("/", authenticateMiddleware, listProducts);
 
-router.post("/", validate(productSchema.create), createProduct);
+router.post(
+  "/",
+  authenticateMiddleware,
+  validate(productSchema.create),
+  createProduct
+);
 
-router.get("/:productId", readProduct);
+router.get("/:productId", authenticateMiddleware, readProduct);
 
-router.put("/:productId", validate(productSchema.update), updateProduct);
+router.put(
+  "/:productId",
+  authenticateMiddleware,
+  validate(productSchema.update),
+  updateProduct
+);
 
-router.delete("/:productId", deleteProduct);
+router.delete("/:productId", authenticateMiddleware, deleteProduct);
 
 export default router;
