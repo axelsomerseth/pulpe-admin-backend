@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Category } from "../../db/entities/categories";
+import { getRandomId } from "../../utils/repository";
 import {
   listCategories,
   readCategory,
@@ -52,7 +53,19 @@ describe("categories request handler", () => {
     expect(res.send).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should read one category");
+  it("should read one category", async () => {
+    // arrange
+    const req = { params: { categoryId: getRandomId() } } as unknown as Request;
+    const res = { status: jest.fn(), send: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
+
+    // act
+    await readCategory(req, res, next);
+
+    // assert
+    expect(res.status).toHaveBeenCalledTimes(1);
+    expect(res.send).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("should update one category");
 

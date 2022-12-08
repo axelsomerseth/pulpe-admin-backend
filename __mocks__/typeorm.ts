@@ -18,6 +18,7 @@
 // };
 
 import { Category } from "../source/db/entities/categories";
+import { getRandomId } from "../source/utils/repository";
 
 const Entity = jest.fn();
 const Column = jest.fn();
@@ -31,14 +32,13 @@ const DataSource = jest.fn().mockImplementation(() => {
     getRepository: jest.fn().mockImplementation(() => {
       return {
         save: jest.fn().mockImplementation((input) => {
-          return { ...input };
+          input.id = getRandomId();
         }),
-        find: jest
-          .fn()
-          .mockReturnValue([new Category("Mock Category", "Mock Description")]),
-        findOneBy: jest
-          .fn()
-          .mockReturnValue(new Category("Mock Category", "Mock Description")),
+        find: jest.fn().mockReturnValue([]),
+        findOneBy: jest.fn().mockReturnValue({
+          name: "Mock Name",
+          description: "Mock Description",
+        }),
         remove: jest.fn(),
       };
     }),
