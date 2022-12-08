@@ -33,9 +33,10 @@ const DataSource = jest.fn().mockImplementation(() => {
         save: jest.fn(),
         find: jest
           .fn()
-          .mockImplementation(() => [
-            new Category("Mock Category", "Mock Description"),
-          ]),
+          .mockReturnValue([new Category("Mock Category", "Mock Description")]),
+        findOneBy: jest
+          .fn()
+          .mockReturnValue(new Category("Mock Category", "Mock Description")),
       };
     }),
   };

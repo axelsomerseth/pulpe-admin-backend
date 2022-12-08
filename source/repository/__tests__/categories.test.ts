@@ -1,5 +1,6 @@
 import { Category } from "../../db/entities/categories";
-import { addCategory, findCategories } from "../categories";
+import { getRandomId } from "../../utils/repository";
+import { addCategory, findCategories, findCategoryById } from "../categories";
 
 jest.mock("typeorm");
 
@@ -23,5 +24,17 @@ describe("categories repository", () => {
     // assert
     expect(result).toBeDefined();
     expect(result.length).toBeGreaterThan(0);
+  });
+
+  it("should find a category", async () => {
+    // arrange
+    const randomId = getRandomId();
+
+    // act
+    const result = await findCategoryById(randomId);
+
+    // assert
+    expect(result).toBeDefined();
+    expect(result?.name).toBeDefined();
   });
 });
