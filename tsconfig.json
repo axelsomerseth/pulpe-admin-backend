@@ -44,5 +44,5 @@
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["./source"]
+  "include": ["./source", "__mocks__"]
 }
