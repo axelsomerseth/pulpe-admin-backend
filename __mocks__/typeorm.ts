@@ -17,6 +17,8 @@
 //   }),
 // };
 
+import { Category } from "../source/db/entities/categories";
+
 const Entity = jest.fn();
 const Column = jest.fn();
 const PrimaryGeneratedColumn = jest.fn();
@@ -29,6 +31,11 @@ const DataSource = jest.fn().mockImplementation(() => {
     getRepository: jest.fn().mockImplementation(() => {
       return {
         save: jest.fn(),
+        find: jest
+          .fn()
+          .mockImplementation(() => [
+            new Category("Mock Category", "Mock Description"),
+          ]),
       };
     }),
   };

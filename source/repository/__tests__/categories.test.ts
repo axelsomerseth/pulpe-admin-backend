@@ -1,5 +1,5 @@
 import { Category } from "../../db/entities/categories";
-import { addCategory } from "../categories";
+import { addCategory, findCategories } from "../categories";
 
 jest.mock("typeorm");
 
@@ -13,5 +13,15 @@ describe("categories repository", () => {
 
     // assert
     expect(result).toBeDefined();
+  });
+
+  it("should list categories", async () => {
+    // arrange
+    // act
+    const result = await findCategories();
+
+    // assert
+    expect(result).toBeDefined();
+    expect(result.length).toBeGreaterThan(0);
   });
 });
