@@ -104,6 +104,7 @@ const removeCategory = async (
     await categoryRepository.remove(categoryToRemove);
   } catch (err: unknown) {
     console.error(err);
+    return { isDeleted: false };
   }
 
   return { isDeleted: true };

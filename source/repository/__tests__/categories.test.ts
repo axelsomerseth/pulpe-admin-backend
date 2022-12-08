@@ -5,6 +5,7 @@ import {
   editCategory,
   findCategories,
   findCategoryById,
+  removeCategory,
 } from "../categories";
 
 jest.mock("typeorm");
@@ -57,5 +58,21 @@ describe("categories repository", () => {
     // assert
     expect(result).toBeDefined();
     expect(result?.name).toBe(editedCategory.name);
+  });
+
+  it("should remove a category", async () => {
+    // arrange
+    const existingCategory = new Category(
+      "Existing category",
+      "Some description"
+    );
+    existingCategory.id = getRandomId();
+
+    // act
+    const result = await removeCategory(existingCategory.id);
+
+    // assert
+    expect(result).toBeDefined();
+    expect(result.isDeleted).toBe(true);
   });
 });
