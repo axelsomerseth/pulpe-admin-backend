@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { Category } from "../../db/entities/categories";
 import { getRandomId } from "../../utils/repository";
 import {
   listCategories,
@@ -87,5 +86,17 @@ describe("categories request handler", () => {
     expect(res.send).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should delete one category");
+  it("should delete one category", async () => {
+    // arrange
+    const req = { params: { categoryId: getRandomId() } } as unknown as Request;
+    const res = { sendStatus: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
+
+    // act
+    await deleteCategory(req, res, next);
+
+    // assert
+    expect(res.sendStatus).toHaveBeenCalledTimes(1);
+    expect(res.sendStatus).toHaveBeenCalledWith(204);
+  });
 });
