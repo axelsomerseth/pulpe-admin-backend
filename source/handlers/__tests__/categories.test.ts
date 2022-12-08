@@ -67,7 +67,25 @@ describe("categories request handler", () => {
     expect(res.send).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should update one category");
+  it("should update one category", async () => {
+    // arrange
+    const req = {
+      params: { categoryId: getRandomId() },
+      body: {
+        name: "Mock Name",
+        description: "Mock Description",
+      },
+    } as unknown as Request;
+    const res = { status: jest.fn(), send: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
+
+    // act
+    await updateCategory(req, res, next);
+
+    // assert
+    expect(res.status).toHaveBeenCalledTimes(1);
+    expect(res.send).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("should delete one category");
 });
