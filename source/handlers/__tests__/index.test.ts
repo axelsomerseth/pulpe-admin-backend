@@ -1,5 +1,7 @@
-import { indexHandler } from "./index";
+import { indexHandler } from "../index";
 import { Request, Response, NextFunction } from "express";
+
+jest.mock("typeorm");
 
 describe("index handler", () => {
   it("should respond requests correctly", async () => {
