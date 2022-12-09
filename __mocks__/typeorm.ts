@@ -1,23 +1,3 @@
-// const typeorm = {
-//   Entity: jest.fn(),
-//   Column: jest.fn(),
-//   PrimaryGeneratedColumn: jest.fn(),
-//   ManyToOne: jest.fn(),
-//   OneToMany: jest.fn(),
-//   JoinColumn: jest.fn(),
-//   Relation: jest.fn(),
-//   DataSource: jest.fn().mockImplementation(() => {
-//     return {
-//       getRepository: jest.fn().mockImplementation(() => {
-//         return {
-//           save: jest.fn(),
-//         };
-//       }),
-//     };
-//   }),
-// };
-
-import { Category } from "../source/db/entities/categories";
 import { getRandomId } from "../source/utils/repository";
 
 const Entity = jest.fn();
