@@ -49,6 +49,7 @@ const DataSource = jest.fn().mockImplementation(() => {
     }),
   };
 });
+const ILike = jest.fn();
 
 export {
   Entity,
@@ -59,4 +60,5 @@ export {
   JoinColumn,
   Relation,
   DataSource,
+  ILike,
 };
