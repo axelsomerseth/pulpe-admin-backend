@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import requestTime from "./requestTime";
+import requestTime from "../requestTime";
 
 describe("requestTime middleware", () => {
   it("should add the time to a request", async () => {

@@ -1,5 +1,5 @@
-import validate from "./validate";
-import { categorySchema } from "../schemas/category";
+import validate from "../validate";
+import { categorySchema } from "../../schemas/category";
 import { Request, Response, NextFunction } from "express";
 
 describe("validate middleware", () => {
@@ -14,7 +14,7 @@ describe("validate middleware", () => {
     expect(middlewareFn).toBeInstanceOf(Function);
   });
 
-  // ! happy path
+  // * happy path
   describe("when receiving a Category object", () => {
     it("should validate a the object structure", () => {
       // arrange
