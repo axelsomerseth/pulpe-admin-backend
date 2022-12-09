@@ -56,7 +56,23 @@ describe("products request handler", () => {
     expect(res.send).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should read a product");
+  it("should read a product", async () => {
+    // arrange
+    const req = {
+      params: {
+        productId: getRandomId(),
+      },
+    } as unknown as Request;
+    const res = { status: jest.fn(), send: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
+
+    // act
+    await readProduct(req, res, next);
+
+    // assert
+    expect(res.status).toHaveBeenCalledTimes(1);
+    expect(res.send).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("should update a product");
 

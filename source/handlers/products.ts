@@ -50,7 +50,7 @@ const readProduct: RequestHandler = async (req: Request, res: Response) => {
   const found = await findProductById(productId);
   if (found) {
     res.status(200);
-    res.json(found);
+    res.send(found);
   } else {
     res.sendStatus(404);
   }
