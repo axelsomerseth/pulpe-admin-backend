@@ -68,7 +68,7 @@ const updateProduct: RequestHandler = async (req: Request, res: Response) => {
   const updated = await editProduct(editedProduct);
   if (updated) {
     res.status(200);
-    res.json(updated);
+    res.send(updated);
   } else {
     res.sendStatus(404);
   }
