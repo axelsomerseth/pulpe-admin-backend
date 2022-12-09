@@ -99,5 +99,20 @@ describe("products request handler", () => {
     expect(res.send).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should delete a product");
+  it("should delete a product", async () => {
+    // arrange
+    const req = {
+      params: {
+        productId: getRandomId(),
+      },
+    } as unknown as Request;
+    const res = { sendStatus: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
+    // act
+    await deleteProduct(req, res, next);
+
+    // assert
+    expect(res.sendStatus).toHaveBeenCalledTimes(1);
+    expect(res.sendStatus).toHaveBeenCalledWith(204);
+  });
 });
