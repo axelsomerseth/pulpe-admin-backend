@@ -8,11 +8,15 @@ const errorHandler: ErrorRequestHandler = (
 ) => {
   if (typeof err === "string") {
     // custom application error
-    return res.status(400).json({ message: err });
+    res.status(400);
+    res.json({ message: err });
+    return;
   }
 
   // default to 500 server error
-  return res.status(500).json({ message: err.message });
+  res.status(500);
+  res.json({ message: err.message });
+  return;
 };
 
 export default errorHandler;
