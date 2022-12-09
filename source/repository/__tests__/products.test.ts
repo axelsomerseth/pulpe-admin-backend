@@ -1,6 +1,6 @@
 import { Product } from "../../db/entities/products";
 import { getRandomId, getRandomNumber } from "../../utils/repository";
-import { addProduct } from "../products";
+import { addProduct, findProducts } from "../products";
 
 describe("products repository", () => {
   it("should add a new category", async () => {
@@ -18,5 +18,16 @@ describe("products repository", () => {
 
     // assert
     expect(result).toBeDefined();
+  });
+
+  it("should list products", async () => {
+    // arrange
+
+    // act
+    const result = await findProducts();
+
+    // assert
+    expect(result).toBeDefined();
+    expect(result.length).toBeGreaterThan(0);
   });
 });
