@@ -18,6 +18,7 @@ const find = jest.fn().mockReturnValue([
   },
 ]);
 const findOneBy = jest.fn().mockReturnValue({
+  id: getRandomId(),
   name: "Mock Name",
   description: "Mock Description",
 });

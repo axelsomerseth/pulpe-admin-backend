@@ -40,7 +40,17 @@ describe("transactions repository", () => {
     expect(result?.id).toBeDefined();
   });
 
-  it.todo("should find a transaction by id");
+  it("should find a transaction by id", async () => {
+    // arrange
+    const transactionId = getRandomId();
+
+    // act
+    const result = await findTransactionById(transactionId);
+
+    // assert
+    expect(result).toBeDefined();
+    expect(result?.id).toBeDefined();
+  });
 
   it.todo("should edit a transaction");
 
