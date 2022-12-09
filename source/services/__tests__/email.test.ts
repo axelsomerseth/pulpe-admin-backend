@@ -1,7 +1,7 @@
 import { EmailOptions, EmailSenderSMTP, EmailSenderAPI } from "../email";
 
 jest.mock("nodemailer");
-// jest.mock("mailgun.js");
+jest.mock("mailgun.js");
 
 describe("email options", () => {
   it("should be defined", () => {
@@ -52,7 +52,12 @@ describe("email service", () => {
 });
 
 describe("mailgun email service", () => {
-  it.skip("should send emails", async () => {
+  beforeAll(() => {
+    process.env.MAILGUN_API_KEY = "some_api_key";
+    process.env.MAILGUN_DOMAIN = "some.domain.email";
+  });
+
+  it("should send emails", async () => {
     // arrange
     const emailOptions: EmailOptions = {
       from: "Test Username <test@email.test>",
