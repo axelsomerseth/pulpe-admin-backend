@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Product } from "../../db/entities/products";
+import { getRandomId, getRandomNumber } from "../../utils/repository";
 import {
   listProducts,
   readProduct,
@@ -29,10 +30,31 @@ describe("products request handler", () => {
     await listProducts(req, res, next);
 
     // assert
+    expect(res.status).toHaveBeenCalledTimes(1);
     expect(res.send).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should create a product");
+  it("should create a product", async () => {
+    // arrange
+    const req = {
+      body: {
+        name: "Mock name",
+        description: "Mock description",
+        categoryId: getRandomId(),
+        price: getRandomNumber(),
+        stock: getRandomNumber(),
+      },
+    } as unknown as Request;
+    const res = { status: jest.fn(), send: jest.fn() } as unknown as Response;
+    const next = jest.fn() as NextFunction;
+
+    // act
+    await createProduct(req, res, next);
+
+    // assert
+    expect(res.status).toHaveBeenCalledTimes(1);
+    expect(res.send).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("should read a product");
 

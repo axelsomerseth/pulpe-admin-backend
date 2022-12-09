@@ -34,7 +34,12 @@ const DataSource = jest.fn().mockImplementation(() => {
         save: jest.fn().mockImplementation((input) => {
           input.id = getRandomId();
         }),
-        find: jest.fn().mockReturnValue([]),
+        find: jest.fn().mockReturnValue([
+          {
+            name: "Mock Name",
+            description: "Mock Description",
+          },
+        ]),
         findOneBy: jest.fn().mockReturnValue({
           name: "Mock Name",
           description: "Mock Description",

@@ -39,7 +39,7 @@ const createProduct: RequestHandler = async (req: Request, res: Response) => {
   const created = await addProduct(newProduct);
   if (created?.id) {
     res.status(201);
-    res.json(created);
+    res.send(created);
   } else {
     res.sendStatus(500);
   }
