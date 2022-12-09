@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 
 jest.mock("typeorm");
 
-describe("index handler", () => {
+describe("index request handler", () => {
   it("should respond requests correctly", async () => {
     // arrange
     const req = {} as Request;
@@ -17,6 +17,6 @@ describe("index handler", () => {
 
     // assert
     expect(next).not.toHaveBeenCalled();
-    expect(res.send).toHaveBeenCalled();
+    expect(res.send).toHaveBeenCalledTimes(1);
   });
 });
