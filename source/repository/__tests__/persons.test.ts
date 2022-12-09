@@ -1,5 +1,5 @@
 import { Person } from "../../db/entities/persons";
-import { authenticatePerson } from "../persons";
+import { authenticatePerson, findPersons } from "../persons";
 
 jest.mock("typeorm");
 
@@ -16,7 +16,16 @@ describe("persons repository", () => {
     expect(result?.id).toBeDefined();
   });
 
-  it.todo("should list persons");
+  it("should list persons", async () => {
+    // arrange
+
+    // act
+    const result = await findPersons();
+
+    // assert
+    expect(result).toBeDefined();
+    expect(result.length).toBeGreaterThan(0);
+  });
 
   it.todo("should add a new person");
 
