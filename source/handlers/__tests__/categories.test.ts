@@ -21,7 +21,7 @@ describe("categories request handler", () => {
         size,
       },
     } as unknown as Request;
-    const res = { send: jest.fn(), status: jest.fn() } as unknown as Response;
+    const res = { status: jest.fn(), send: jest.fn() } as unknown as Response;
     const next = jest.fn() as NextFunction;
 
     // act

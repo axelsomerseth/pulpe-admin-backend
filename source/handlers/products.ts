@@ -21,7 +21,7 @@ const listProducts: RequestHandler = async (req: Request, res: Response) => {
     list = await findProducts();
   }
   res.status(200);
-  res.json({
+  res.send({
     page: 1,
     // size: list.length,
     data: list,
