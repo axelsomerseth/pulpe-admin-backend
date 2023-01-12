@@ -111,6 +111,7 @@ const removeCategory = async (
 };
 
 export {
+  categoryRepository,
   findCategories,
   findCategoryById,
   addCategory,

@@ -1,4 +1,5 @@
 import { Category } from "../../db/entities/categories";
+import { AppDataSource } from "../../db/connection";
 import { getRandomId } from "../../utils/repository";
 import {
   addCategory,
@@ -6,9 +7,11 @@ import {
   findCategories,
   findCategoryById,
   removeCategory,
+  categoryRepository,
 } from "../categories";
 
 jest.mock("typeorm");
+jest.mock("../../db/connection");
 
 describe("categories repository", () => {
   it("should add a new category", async () => {
@@ -24,6 +27,11 @@ describe("categories repository", () => {
 
   it("should list categories", async () => {
     // arrange
+    // @ts-ignore
+    categoryRepository.find = jest.fn(() =>
+      Promise.reject({ error: "mock error" })
+    );
+
     // act
     const result = await findCategories();
 
@@ -35,6 +43,12 @@ describe("categories repository", () => {
   it("should find a category", async () => {
     // arrange
     const randomId = getRandomId();
+    // @ts-ignore
+    categoryRepository.find = jest.fn(() =>
+      Promise.reject({ error: "mock error" })
+    );
+    // @ts-ignore
+    // console.log(repo);
 
     // act
     const result = await findCategoryById(randomId);

@@ -9,6 +9,7 @@ import {
 } from "../transactions";
 
 jest.mock("typeorm");
+jest.mock("../../db/connection");
 
 describe("transactions repository", () => {
   it("should list transactions", async () => {

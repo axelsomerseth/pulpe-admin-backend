@@ -38,6 +38,10 @@ const addTransaction = async (
     newProduct.id = product?.id;
     newProduct.createdAt = product?.createdAt;
     newProduct.updatedAt = new Date();
+
+    // TODO: use an enum for movement property.
+    // TODO: this logic should be in the services folder/layer.
+    // TODO: stock should be calculated when it comes => SOLID principles (S).
     if (newTransaction.movement === 1) {
       // 1 => In
       newProduct.stock = newProduct.stock + newTransaction.quantity;
